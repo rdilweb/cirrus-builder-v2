@@ -1,0 +1,39 @@
+{
+    "name": "cirrusbuilder2",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@material-ui/core": "^4.8.3",
+        "react": "^16.12.0",
+        "react-dom": "^16.12.0",
+        "react-scripts": "3.3.0",
+        "typescript": "^3.7.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "prettier": "prettier --write **/**.{js,jsx,ts,tsx,json,css,html}"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "prettier": "^1.19.1"
+    },
+    "prettier": {
+        "semi": false,
+        "tabWidth": 4
+    }
+}
