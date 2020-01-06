@@ -1,25 +1,27 @@
-class Task {
+export class Task {
     name: String
     YamlNodes: Array<any>
+    dependsOn: Array<Task>
 
-    constructor(name: String, YamlNodes: Array<any>) {
+    constructor(name: String, YamlNodes: Array<any>, dependsOn: Array<Task>) {
         this.name = name
         this.YamlNodes = YamlNodes
+        this.dependsOn = dependsOn
     }
 }
 
-class Script {
+export class Script {
     name: String
-    run: Array<Script>
+    run: Array<String> | String
 
-    constructor(name: String = "main", run: Array<Script>) {
+    constructor(name: String = "main", run: Array<String> | String) {
         this.name = name
         this.run = run
     }
 }
 
 // have to name it CICache to fix conficts
-class CICache {
+export class CICache {
     folder: String
     name: String
     populate: Array<Script> | Script | undefined
@@ -28,8 +30,8 @@ class CICache {
     constructor(
         name: String = "dependencies",
         folder: String,
-        populate: Array<Script> | Script | undefined,
-        fingerprint: Array<Script> | Script | undefined
+        populate: Array<Script> | Script,
+        fingerprint: Array<Script> | Script
     ) {
         this.folder = folder
         this.name = name
@@ -38,14 +40,14 @@ class CICache {
     }
 }
 
-class Environment {
+export class Environment {
     keys: object
     constructor(keys: object) {
         this.keys = keys
     }
 }
 
-class Machine {
+export class Machine {
     type: any
 
     constructor(type: "container" | "mac" | "win" | "fbsd") {

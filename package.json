@@ -6,7 +6,7 @@
         "@material-ui/core": "^4.8.3",
         "react": "^16.12.0",
         "react-dom": "^16.12.0",
-        "react-scripts": "3.3.0",
+        "react-scripts": "3.2.0",
         "typescript": "^3.7.4"
     },
     "scripts": {
@@ -19,8 +19,7 @@
     },
     "browserslist": {
         "production": [
-            ">0.2%",
-            "not dead",
+            ">0%",
             "not op_mini all"
         ],
         "development": [
