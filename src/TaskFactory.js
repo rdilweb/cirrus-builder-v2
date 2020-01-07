@@ -45,10 +45,9 @@ export default props => {
 
     return (
         <form noValidate autoComplete="off">
-            <Grid container spacing={12}>
+            <Grid container spacing={10}>
                 <Grid item xs={4}>
                     <TextField
-                        id="outlined-basic"
                         label="Task Name"
                         variant="outlined"
                         value={name}
