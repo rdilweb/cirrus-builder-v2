@@ -10,9 +10,11 @@ import FreeBSDSelect from "./FreeBSDSelect"
 import WindowsSelect from "./WindowsSelect"
 import MacOSSelect from "./MacOSSelect"
 import DockerSelect from "./DockerSelect"
-import ConfigScriptCreationView from "./ConfigScriptCreationView"
+// import ConfigureScript from "./ConfigureScriptView"
 import Button from "@material-ui/core/Button"
 import Create from "@material-ui/icons/Create"
+import { addScriptTo } from "./ChangeHandler"
+import { Script } from "./classes"
 
 export default props => {
     let [name, setName] = React.useState("")
@@ -22,6 +24,10 @@ export default props => {
     let [macImg, setMacImg] = React.useState("")
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
     let [scripts, setScripts] = React.useState([])
+
+    const handleScriptAddition = () => {
+        addScriptTo(new Script(), scripts, setScripts)
+    }
 
     let componentOsSelect
     switch (taskType) {
@@ -98,14 +104,10 @@ export default props => {
                         variant="contained"
                         color="secondary"
                         startIcon={<Create />}
+                        onClick={handleScriptAddition}
                     >
                         Add Script
                     </Button>
-                </Grid>
-                <Grid item xs={3}>
-                    {scripts.forEach(script => (
-                        <ConfigScriptCreationView />
-                    ))}
                 </Grid>
             </Grid>
         </form>

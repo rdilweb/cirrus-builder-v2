@@ -1,42 +1,88 @@
-export class Task {
+/**
+ * The base object that can be extended.
+ * 
+ * This isn't exported on purpose, as its
+ * point is just to ensure the name code
+ * is the name on all sub classes.
+ */
+class ExtendableBaseObject {
     name: String
-    YamlNodes: Array<any>
-    dependsOn: Array<Task>
 
-    constructor(name: String, YamlNodes: Array<any>, dependsOn: Array<Task>) {
+    constructor(name: String) {
         this.name = name
-        this.YamlNodes = YamlNodes
-        this.dependsOn = dependsOn
+    }
+
+    getName() {
+        return this.name
+    }
+
+    setName(newName: String) {
+        this.name = newName
     }
 }
 
-export class Script {
-    name: String
-    run: Array<String> | String
+export class Script extends ExtendableBaseObject {
+    run: String
 
-    constructor(name: String = "main", run: Array<String> | String) {
-        this.name = name
+    constructor(name: String = "main", run: String) {
+        super(name)
         this.run = run
+    }
+
+    getRun() {
+        return this.run
+    }
+
+    setRun(newRun: String) {
+        this.run = newRun
+    }
+
+    toString() {
+        let e = (this.getName() === "main" ? "" : `${this.getName()}_`) + "script"
+        return `${e}: ${this.getRun()}`
     }
 }
 
 // have to name it CICache to fix conficts
-export class CICache {
+export class CICache extends ExtendableBaseObject {
     folder: String
-    name: String
-    populate: Array<Script> | Script | undefined
-    fingerprint: Array<Script> | Script | undefined
+    populate: Script
+    fingerprint: Script
 
     constructor(
         name: String = "dependencies",
         folder: String,
-        populate: Array<Script> | Script,
-        fingerprint: Array<Script> | Script
+        populate: Script,
+        fingerprint: Script
     ) {
+        super(name)
         this.folder = folder
-        this.name = name
         this.populate = populate
         this.fingerprint = fingerprint
+    }
+
+    getFolder() {
+        return this.folder
+    }
+
+    setFolder(newThing: String) {
+        this.folder = newThing
+    }
+
+    getPopulate() {
+        this.populate
+    }
+
+    setPopulate(newThing: Script) {
+        this.populate = newThing
+    }
+
+    getFingerprint() {
+        return this.fingerprint
+    }
+
+    setFingerprint(newThing: Script) {
+        this.fingerprint = newThing
     }
 }
 
@@ -49,9 +95,17 @@ export class Environment {
 }
 
 export class Machine {
-    type: any
+    type: "container" | "mac" | "win" | "fbsd"
 
     constructor(type: "container" | "mac" | "win" | "fbsd") {
         this.type = type
+    }
+
+    getType() {
+        return this.type
+    }
+
+    setType(newType: "container" | "mac" | "win" | "fbsd") {
+        this.type = newType
     }
 }
