@@ -1,3 +1,9 @@
+/**
+ * Basically the main class, I would make it
+ * TypeScript, but its difficult due to the
+ * state getters and setters
+ */
+
 import React from "react"
 import TextField from "@material-ui/core/TextField"
 import Radio from "@material-ui/core/Radio"
@@ -15,15 +21,18 @@ import Button from "@material-ui/core/Button"
 import Create from "@material-ui/icons/Create"
 import Cache from "@material-ui/icons/Cached"
 import Code from "@material-ui/icons/Code"
-import CustomizeScript from "./CustomizeScript"
 import { withStyles } from "@material-ui/core/styles"
+import { useScript } from "./classes"
+import ScriptConfig from "./ScriptConfig"
+
+let scripts = []
 
 export default withStyles({
     space: {
         marginBottom: "12px"
     }
 })(props => {
-    let [name, setName] = React.useState("")
+    let [name, setName] = React.useState("") // current task name
     let [taskType, setTaskType] = React.useState("docker")
     let [bsdImg, setBsdImg] = React.useState("")
     let [winImg, setWinImg] = React.useState("")
@@ -53,6 +62,11 @@ export default withStyles({
             )
             break
     }
+
+    let scriptConfs = []
+    scripts.forEach(script => {
+        scriptConfs.push(<ScriptConfig script={script} />)
+    })
 
     return (
         <form noValidate autoComplete="off">
@@ -107,6 +121,7 @@ export default withStyles({
                         color="primary"
                         startIcon={<Create />}
                         endIcon={<Code />}
+                        onClick={() => scripts.push(useScript())}
                     >
                         Add Script
                     </Button>
@@ -123,6 +138,7 @@ export default withStyles({
             <br />
             <br />
             <Divider />
+            {scriptConfs}
         </form>
     )
 })

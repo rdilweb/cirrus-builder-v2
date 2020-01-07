@@ -118,3 +118,8 @@ export class Machine {
         this.type = newType
     }
 }
+
+// helper function to create an empty Script
+export function useScript() {
+    return new Script("", "")
+}

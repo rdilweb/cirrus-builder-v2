@@ -8,21 +8,23 @@ import TextField from "@material-ui/core/TextField"
 import { makeStyles } from "@material-ui/core/styles"
 import { Script } from "./classes"
 
-const classes = makeStyles(theme => ({
-    heading: {
-        fontSize: theme.typography.pxToRem(15),
-        flexBasis: "33.33%",
-        flexShrink: 0
-    }
-}))()
-
 interface Props {
     script: Script
 }
 
 export default (props: Props) => {
+    const classes = makeStyles(theme => ({
+        heading: {
+            fontSize: theme.typography.pxToRem(15),
+            flexBasis: "33.33%",
+            flexShrink: 0
+        }
+    }))()
+
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!setExpanded)
+
+    if(!props.script) throw new Error("no script")
 
     return (
         <ExpansionPanel expanded={expanded} onChange={handleChange}>
