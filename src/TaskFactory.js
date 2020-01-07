@@ -10,6 +10,9 @@ import FreeBSDSelect from "./FreeBSDSelect"
 import WindowsSelect from "./WindowsSelect"
 import MacOSSelect from "./MacOSSelect"
 import DockerSelect from "./DockerSelect"
+import ConfigScriptCreationView from "./ConfigScriptCreationView"
+import Button from "@material-ui/core/Button"
+import Create from "@material-ui/icons/Create"
 
 export default props => {
     let [name, setName] = React.useState("")
@@ -18,6 +21,7 @@ export default props => {
     let [winImg, setWinImg] = React.useState("")
     let [macImg, setMacImg] = React.useState("")
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
+    let [scripts, setScripts] = React.useState([])
 
     let componentOsSelect
     switch (taskType) {
@@ -46,7 +50,7 @@ export default props => {
     return (
         <form noValidate autoComplete="off">
             <Grid container spacing={10}>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <TextField
                         label="Task Name"
                         variant="outlined"
@@ -54,7 +58,7 @@ export default props => {
                         onChange={event => setName(event.target.value)}
                     />
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Machine Type</FormLabel>
                         <RadioGroup
@@ -86,8 +90,22 @@ export default props => {
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={3}>
                     {componentOsSelect}
+                </Grid>
+                <Grid item xs={3}>
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        startIcon={<Create />}
+                    >
+                        Add Script
+                    </Button>
+                </Grid>
+                <Grid item xs={3}>
+                    {scripts.forEach(script => (
+                        <ConfigScriptCreationView />
+                    ))}
                 </Grid>
             </Grid>
         </form>
