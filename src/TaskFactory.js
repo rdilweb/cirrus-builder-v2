@@ -17,7 +17,6 @@ import Cache from "@material-ui/icons/Cached"
 import Code from "@material-ui/icons/Code"
 import CustomizeScript from "./CustomizeScript"
 import { withStyles } from "@material-ui/core/styles"
-import ReactDOM from "react-dom"
 
 export default withStyles({
     space: {
@@ -30,7 +29,6 @@ export default withStyles({
     let [winImg, setWinImg] = React.useState("")
     let [macImg, setMacImg] = React.useState("")
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
-    let [scripts, setScripts] = React.useState([])
 
     let componentOsSelect
     switch (taskType) {
@@ -55,20 +53,6 @@ export default withStyles({
             )
             break
     }
-
-    // yup, they don't appear unless we do this :(
-    scripts.forEach(script => {
-        ReactDOM.render(
-            <Grid item xs={3}>
-                <CustomizeScript
-                    script={script}
-                    scriptList={scripts}
-                    setScriptList={setScripts}
-                />
-            </Grid>,
-            document.getElementById("appendScriptsHere")
-        )
-    })
 
     return (
         <form noValidate autoComplete="off">
@@ -123,7 +107,6 @@ export default withStyles({
                         color="primary"
                         startIcon={<Create />}
                         endIcon={<Code />}
-                        onClick={handleScriptAddition}
                     >
                         Add Script
                     </Button>
@@ -140,7 +123,6 @@ export default withStyles({
             <br />
             <br />
             <Divider />
-            <Grid container spacing={10} id="appendScriptsHere" />
         </form>
     )
 })
