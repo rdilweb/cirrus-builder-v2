@@ -3,28 +3,21 @@ import InputLabel from "@material-ui/core/InputLabel"
 import MenuItem from "@material-ui/core/MenuItem"
 import Select from "@material-ui/core/Select"
 
-const supportedFreeBsdOses = [
-    "freebsd-13-0-snap",
-    "freebsd-12-1-snap",
-    "freebsd-12-1",
-    "freebsd-12-0",
-    "freebsd-11-3-snap",
-    "freebsd-11-3"
-]
+const supportedMacOses = ["base", "xcode", "flutter"]
 
 let selectors = []
-for (let i = 0; i < supportedFreeBsdOses.length; i++) {
-    const os = supportedFreeBsdOses[i]
+for (let i = 0; i < supportedMacOses.length; i++) {
+    const os = supportedMacOses[i]
     selectors.push(<MenuItem value={os}>{os}</MenuItem>)
 }
 
 export default props => {
     return (
         <>
-            <InputLabel id="freebsd-idr">FreeBSD Image</InputLabel>
+            <InputLabel id="macos-ctr">macOS Image</InputLabel>
             <Select
-                labelId="freebsd-idr"
-                id="freebsd-idr"
+                labelId="macos-ctr"
+                id="macos-ctr"
                 value={props.select}
                 onChange={event => props.setSelect(event.target.value)}
             >

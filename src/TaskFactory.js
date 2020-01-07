@@ -8,18 +8,32 @@ import FormLabel from "@material-ui/core/FormLabel"
 import Grid from "@material-ui/core/Grid"
 import FreeBSDSelect from "./FreeBSDSelect"
 import WindowsSelect from "./WindowsSelect"
+import MacOSSelect from "./MacOSSelect"
+import DockerSelect from "./DockerSelect"
 
 export default props => {
     let [name, setName] = React.useState("")
     let [taskType, setTaskType] = React.useState("docker")
     let [bsdImg, setBsdImg] = React.useState("")
     let [winImg, setWinImg] = React.useState("")
+    let [macImg, setMacImg] = React.useState("")
+    let [dkrImage, setDkrImage] = React.useState("debian:latest")
 
     let componentOsSelect
     switch (taskType) {
+        case "docker":
+            componentOsSelect = (
+                <DockerSelect dkrImage={dkrImage} setDkrImage={setDkrImage} />
+            )
+            break
         case "win":
             componentOsSelect = (
                 <WindowsSelect select={winImg} setSelect={setWinImg} />
+            )
+            break
+        case "macos":
+            componentOsSelect = (
+                <MacOSSelect select={macImg} setSelect={setMacImg} />
             )
             break
         default:
