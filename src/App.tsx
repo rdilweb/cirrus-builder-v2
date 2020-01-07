@@ -31,16 +31,22 @@ export default () => {
                             </IconButton>
                         </a>
                     </Tooltip>
-                    <Typography variant="h6">Cirrus CI Configuration Builder</Typography>
+                    <Typography variant="h6">
+                        Cirrus CI Configuration Builder
+                    </Typography>
                 </Toolbar>
             </AppBar>
             <Paper
                 style={{
                     padding: "40px",
-                    margin: "15px"
+                    margin: "15px",
+                    paddingBottom: "75px"
                 }}
+                elevation={4}
             >
                 <TaskFactory />
+                <br />
+                <br />
             </Paper>
         </>
     )

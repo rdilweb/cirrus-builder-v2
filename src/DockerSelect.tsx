@@ -7,13 +7,17 @@ interface Props {
 }
 
 export default (props: Props) => {
+    let error = !props.dkrImage.includes(":")
     return (
         <TextField
-            id="outlined-basic"
             label="Docker Image"
             variant="outlined"
             value={props.dkrImage}
             onChange={event => props.setDkrImage(event.target.value)}
+            error={error}
+            helperText={
+                error ? "That doesn't look like a vaild Docker image!" : ""
+            }
         />
     )
 }

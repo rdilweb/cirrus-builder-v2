@@ -1,6 +1,6 @@
 /**
  * The base object that can be extended.
- * 
+ *
  * This isn't exported on purpose, as its
  * point is just to ensure the name code
  * is the name on all sub classes.
@@ -24,7 +24,7 @@ class ExtendableBaseObject {
 export class Script extends ExtendableBaseObject {
     run: String
 
-    constructor(name: String = "main", run: String) {
+    constructor(name: String, run: String) {
         super(name)
         this.run = run
     }
@@ -38,7 +38,8 @@ export class Script extends ExtendableBaseObject {
     }
 
     toString() {
-        let e = (this.getName() === "main" ? "" : `${this.getName()}_`) + "script"
+        let e =
+            (this.getName() === "main" ? "" : `${this.getName()}_`) + "script"
         return `${e}: ${this.getRun()}`
     }
 }
@@ -94,10 +95,12 @@ export class Environment {
     }
 }
 
-export class Machine {
-    type: "container" | "mac" | "win" | "fbsd"
+type machineType = "container" | "mac" | "win" | "fbsd"
 
-    constructor(type: "container" | "mac" | "win" | "fbsd") {
+export class Machine {
+    type: machineType
+
+    constructor(type: machineType) {
         this.type = type
     }
 
@@ -105,7 +108,7 @@ export class Machine {
         return this.type
     }
 
-    setType(newType: "container" | "mac" | "win" | "fbsd") {
+    setType(newType: machineType) {
         this.type = newType
     }
 }

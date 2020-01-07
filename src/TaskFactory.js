@@ -10,13 +10,22 @@ import FreeBSDSelect from "./FreeBSDSelect"
 import WindowsSelect from "./WindowsSelect"
 import MacOSSelect from "./MacOSSelect"
 import DockerSelect from "./DockerSelect"
-// import ConfigureScript from "./ConfigureScriptView"
+import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
 import Create from "@material-ui/icons/Create"
+import Cache from "@material-ui/icons/Cached"
+import Code from "@material-ui/icons/Code"
+import CustomizeScript from "./CustomizeScript"
+import { withStyles } from "@material-ui/core/styles"
 import { addScriptTo } from "./ChangeHandler"
 import { Script } from "./classes"
+import ReactDOM from "react-dom"
 
-export default props => {
+export default withStyles({
+    space: {
+        marginBottom: "12px"
+    }
+})(props => {
     let [name, setName] = React.useState("")
     let [taskType, setTaskType] = React.useState("docker")
     let [bsdImg, setBsdImg] = React.useState("")
@@ -52,6 +61,20 @@ export default props => {
             )
             break
     }
+
+    // yup, they don't appear unless we do this :(
+    scripts.forEach(script => {
+        ReactDOM.render(
+            <Grid item xs={3}>
+                <CustomizeScript
+                    script={script}
+                    scriptList={scripts}
+                    setScriptList={setScripts}
+                />
+            </Grid>,
+            document.getElementById("appendScriptsHere")
+        )
+    })
 
     return (
         <form noValidate autoComplete="off">
@@ -101,15 +124,29 @@ export default props => {
                 </Grid>
                 <Grid item xs={3}>
                     <Button
+                        className={props.classes.space}
                         variant="contained"
-                        color="secondary"
+                        color="primary"
                         startIcon={<Create />}
+                        endIcon={<Code />}
                         onClick={handleScriptAddition}
                     >
                         Add Script
                     </Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<Create />}
+                        endIcon={<Cache />}
+                    >
+                        Add Cache
+                    </Button>
                 </Grid>
             </Grid>
+            <br />
+            <br />
+            <Divider />
+            <Grid container spacing={10} id="appendScriptsHere" />
         </form>
     )
-}
+})
