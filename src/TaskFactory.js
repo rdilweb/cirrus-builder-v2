@@ -17,8 +17,6 @@ import Cache from "@material-ui/icons/Cached"
 import Code from "@material-ui/icons/Code"
 import CustomizeScript from "./CustomizeScript"
 import { withStyles } from "@material-ui/core/styles"
-import { addScriptTo } from "./ChangeHandler"
-import { Script } from "./classes"
 import ReactDOM from "react-dom"
 
 export default withStyles({
@@ -33,10 +31,6 @@ export default withStyles({
     let [macImg, setMacImg] = React.useState("")
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
     let [scripts, setScripts] = React.useState([])
-
-    const handleScriptAddition = () => {
-        addScriptTo(new Script(), scripts, setScripts)
-    }
 
     let componentOsSelect
     switch (taskType) {

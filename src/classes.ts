@@ -7,9 +7,11 @@
  */
 class ExtendableBaseObject {
     name: String
+    id: Number
 
     constructor(name: String) {
         this.name = name
+        this.id = Math.floor(Math.random() * 10000)
     }
 
     getName() {
@@ -18,6 +20,10 @@ class ExtendableBaseObject {
 
     setName(newName: String) {
         this.name = newName
+    }
+
+    getId() {
+        return this.id
     }
 }
 

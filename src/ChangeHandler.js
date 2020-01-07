@@ -1,3 +1,5 @@
 export let addScriptTo = (script, list, listSetState) => {
-    listSetState([...list, script])
+    let list2 = [...list]
+    list2.push(script)
+    listSetState(list2)
 }
