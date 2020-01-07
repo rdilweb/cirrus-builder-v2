@@ -1,8 +1,12 @@
 import React from "react"
-
 import TextField from "@material-ui/core/TextField"
 
-export default props => {
+interface Props {
+    dkrImage: String
+    setDkrImage(newImage: String): void
+}
+
+export default (props: Props) => {
     return (
         <TextField
             id="outlined-basic"

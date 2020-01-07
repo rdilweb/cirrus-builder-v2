@@ -30,6 +30,7 @@
         ]
     },
     "devDependencies": {
+        "@types/react-dom": "^16.9.4",
         "prettier": "^1.19.1"
     },
     "prettier": {
