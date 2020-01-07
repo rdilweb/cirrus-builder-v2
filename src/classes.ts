@@ -70,7 +70,7 @@ export class CICache extends ExtendableBaseObject {
     }
 
     getPopulate() {
-        this.populate
+        return this.populate
     }
 
     setPopulate(newThing: Script) {
