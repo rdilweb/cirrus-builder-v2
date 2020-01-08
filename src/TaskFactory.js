@@ -74,9 +74,17 @@ export default withStyles({
     let drawers = []
     cfgObjs.forEach(futureYamlNode => {
         drawers.push(
-            futureYamlNode instanceof CICache
-                ? <CacheConfig cache={futureYamlNode} key={futureYamlNode.getId()} />
-                : <ScriptConfig script={futureYamlNode} key={futureYamlNode.getId()} />
+            futureYamlNode instanceof CICache ? (
+                <CacheConfig
+                    cache={futureYamlNode}
+                    key={futureYamlNode.getId()}
+                />
+            ) : (
+                <ScriptConfig
+                    script={futureYamlNode}
+                    key={futureYamlNode.getId()}
+                />
+            )
         )
     })
 
