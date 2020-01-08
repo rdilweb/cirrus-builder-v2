@@ -27,9 +27,13 @@ export default (props: Props) => {
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!expanded)
     // eslint-disable-next-line
-    let [forceRerenderer, setForce] = React.useState(0)
+    let [forceRerender, setForce] = React.useState(0)
 
     if (!props.script) throw new Error("no script")
+
+    function rerender() {
+        setForce(Math.random() * Math.random())
+    }
 
     return (
         <ExpansionPanel expanded={expanded} onChange={handleChange}>
@@ -53,7 +57,7 @@ export default (props: Props) => {
                     value={props.script.getName()}
                     onChange={event => {
                         props.script.setName(event.target.value)
-                        setForce(Math.random() * Math.random())
+                        rerender()
                     }}
                 />
                 <TextField
@@ -63,7 +67,7 @@ export default (props: Props) => {
                     value={props.script.getRun()}
                     onChange={event => {
                         props.script.setRun(event.target.value)
-                        setForce(Math.random() * Math.random())
+                        rerender()
                     }}
                 />
             </ExpansionPanelDetails>

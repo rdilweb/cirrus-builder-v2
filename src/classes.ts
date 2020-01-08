@@ -30,9 +30,9 @@ class ExtendableBaseObject {
 export class Script extends ExtendableBaseObject {
     run: String
 
-    constructor(name: String, run: String) {
-        super(name)
-        this.run = run
+    constructor() {
+        super("")
+        this.run = ""
     }
 
     getRun() {
@@ -56,16 +56,11 @@ export class CICache extends ExtendableBaseObject {
     populate: Script
     fingerprint: Script
 
-    constructor(
-        name: String = "dependencies",
-        folder: String,
-        populate: Script,
-        fingerprint: Script
-    ) {
-        super(name)
-        this.folder = folder
-        this.populate = populate
-        this.fingerprint = fingerprint
+    constructor() {
+        super("")
+        this.folder = ""
+        this.populate = new Script()
+        this.fingerprint = new Script()
     }
 
     getFolder() {
@@ -80,16 +75,8 @@ export class CICache extends ExtendableBaseObject {
         return this.populate
     }
 
-    setPopulate(newThing: Script) {
-        this.populate = newThing
-    }
-
     getFingerprint() {
         return this.fingerprint
-    }
-
-    setFingerprint(newThing: Script) {
-        this.fingerprint = newThing
     }
 }
 
@@ -101,13 +88,13 @@ export class Environment {
     }
 }
 
-type machineType = "container" | "mac" | "win" | "fbsd"
+type machineType = "docker" | "mac" | "win" | "fbsd"
 
 export class Machine {
     type: machineType
 
-    constructor(type: machineType) {
-        this.type = type
+    constructor() {
+        this.type = "docker"
     }
 
     getType() {
@@ -117,9 +104,4 @@ export class Machine {
     setType(newType: machineType) {
         this.type = newType
     }
-}
-
-// helper function to create an empty Script
-export function useScript() {
-    return new Script("", "")
 }

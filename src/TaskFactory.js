@@ -21,10 +21,11 @@ import Create from "@material-ui/icons/Create"
 import Cache from "@material-ui/icons/Cached"
 import Code from "@material-ui/icons/Code"
 import { withStyles } from "@material-ui/core/styles"
-import { useScript } from "./classes"
+import { Script, CICache, Machine } from "./classes"
 import ScriptConfig from "./ScriptConfig"
 
-let scripts = []
+let cfgObjs = []
+let mtype = new Machine()
 
 export default withStyles({
     space: {
@@ -32,7 +33,6 @@ export default withStyles({
     }
 })(props => {
     let [name, setName] = React.useState("") // current task name
-    let [taskType, setTaskType] = React.useState("docker")
     let [bsdImg, setBsdImg] = React.useState("")
     let [winImg, setWinImg] = React.useState("")
     let [macImg, setMacImg] = React.useState("")
@@ -40,10 +40,10 @@ export default withStyles({
     // a state that allows us to make react think the dom needs
     // to be re-rendered.
     // eslint-disable-next-line
-    let [forceRerenderer, setForce] = React.useState(0)
+    let [forceRerender, setForce] = React.useState(0)
 
     let componentOsSelect
-    switch (taskType) {
+    switch (mtype.getType()) {
         case "docker":
             componentOsSelect = (
                 <DockerSelect dkrImage={dkrImage} setDkrImage={setDkrImage} />
@@ -66,9 +66,17 @@ export default withStyles({
             break
     }
 
+    function rerender() {
+        setForce(Math.random() * Math.random())
+    }
+
     let scriptConfs = []
-    scripts.forEach(script => {
-        scriptConfs.push(<ScriptConfig script={script} key={script.getId()} />)
+    cfgObjs.forEach(script => {
+        scriptConfs.push(
+            script instanceof CICache
+                ? <div></div>
+                : <ScriptConfig script={script} key={script.getId()} />
+        )
     })
 
     return (
@@ -88,8 +96,11 @@ export default withStyles({
                         <RadioGroup
                             aria-label="machine-type"
                             name="machineType"
-                            value={taskType}
-                            onChange={event => setTaskType(event.target.value)}
+                            value={mtype.getType()}
+                            onChange={event => {
+                                mtype.setType(event.target.value)
+                                rerender()
+                            }}
                         >
                             <FormControlLabel
                                 value="docker"
@@ -125,8 +136,8 @@ export default withStyles({
                         startIcon={<Create />}
                         endIcon={<Code />}
                         onClick={() => {
-                            scripts.push(useScript())
-                            setForce(Math.random() * Math.random())
+                            cfgObjs.push(new Script())
+                            rerender()
                         }}
                     >
                         Add Script
