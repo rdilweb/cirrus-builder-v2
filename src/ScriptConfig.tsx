@@ -24,7 +24,7 @@ export default (props: Props) => {
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!setExpanded)
 
-    if(!props.script) throw new Error("no script")
+    if (!props.script) throw new Error("no script")
 
     return (
         <ExpansionPanel expanded={expanded} onChange={handleChange}>
@@ -34,7 +34,10 @@ export default (props: Props) => {
                 id={`script-${props.script.getName()}-header`}
             >
                 <Typography className={classes.heading}>
-                    General settings
+                    {props.script.getName() !== ""
+                        ? props.script.getName()
+                        : "Unnamed"}{" "}
+                    Script
                 </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

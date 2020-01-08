@@ -38,6 +38,9 @@ export default withStyles({
     let [winImg, setWinImg] = React.useState("")
     let [macImg, setMacImg] = React.useState("")
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
+    // a state that allows us to make react think the dom needs
+    // to be re-rendered.
+    let [forceRerenderer, setForce] = React.useState(Math.random())
 
     let componentOsSelect
     switch (taskType) {
@@ -121,7 +124,11 @@ export default withStyles({
                         color="primary"
                         startIcon={<Create />}
                         endIcon={<Code />}
-                        onClick={() => scripts.push(useScript())}
+                        onClick={() => {
+                            scripts.push(useScript())
+                            console.log(forceRerenderer)
+                            setForce(Math.random() * Math.random())
+                        }}
                     >
                         Add Script
                     </Button>
