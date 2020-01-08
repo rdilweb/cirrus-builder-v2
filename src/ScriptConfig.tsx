@@ -18,11 +18,16 @@ export default (props: Props) => {
             fontSize: theme.typography.pxToRem(15),
             flexBasis: "33.33%",
             flexShrink: 0
+        },
+        space: {
+            margin: theme.spacing(1)
         }
     }))()
 
     const [expanded, setExpanded] = React.useState(false)
-    const handleChange = () => setExpanded(!setExpanded)
+    const handleChange = () => setExpanded(!expanded)
+    // eslint-disable-next-line
+    let [forceRerenderer, setForce] = React.useState(0)
 
     if (!props.script) throw new Error("no script")
 
@@ -41,20 +46,25 @@ export default (props: Props) => {
                 </Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-                <Typography variant="body1">Hello</Typography>
                 <TextField
+                    className={classes.space}
                     label="Script Name"
                     variant="outlined"
                     value={props.script.getName()}
-                    onChange={event => props.script.setName(event.target.value)}
+                    onChange={event => {
+                        props.script.setName(event.target.value)
+                        setForce(Math.random() * Math.random())
+                    }}
                 />
-                <br />
-                <br />
                 <TextField
+                    className={classes.space}
                     label="Command"
                     variant="outlined"
                     value={props.script.getRun()}
-                    onChange={event => props.script.setRun(event.target.value)}
+                    onChange={event => {
+                        props.script.setRun(event.target.value)
+                        setForce(Math.random() * Math.random())
+                    }}
                 />
             </ExpansionPanelDetails>
         </ExpansionPanel>

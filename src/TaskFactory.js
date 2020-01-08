@@ -16,7 +16,6 @@ import FreeBSDSelect from "./FreeBSDSelect"
 import WindowsSelect from "./WindowsSelect"
 import MacOSSelect from "./MacOSSelect"
 import DockerSelect from "./DockerSelect"
-import Divider from "@material-ui/core/Divider"
 import Button from "@material-ui/core/Button"
 import Create from "@material-ui/icons/Create"
 import Cache from "@material-ui/icons/Cached"
@@ -40,7 +39,8 @@ export default withStyles({
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
     // a state that allows us to make react think the dom needs
     // to be re-rendered.
-    let [forceRerenderer, setForce] = React.useState(Math.random())
+    // eslint-disable-next-line
+    let [forceRerenderer, setForce] = React.useState(0)
 
     let componentOsSelect
     switch (taskType) {
@@ -68,7 +68,7 @@ export default withStyles({
 
     let scriptConfs = []
     scripts.forEach(script => {
-        scriptConfs.push(<ScriptConfig script={script} />)
+        scriptConfs.push(<ScriptConfig script={script} key={script.getId()} />)
     })
 
     return (
@@ -93,22 +93,22 @@ export default withStyles({
                         >
                             <FormControlLabel
                                 value="docker"
-                                control={<Radio />}
+                                control={<Radio disableRipple />}
                                 label="Docker"
                             />
                             <FormControlLabel
                                 value="macos"
-                                control={<Radio />}
+                                control={<Radio disableRipple />}
                                 label="macOS (via Anka)"
                             />
                             <FormControlLabel
                                 value="win"
-                                control={<Radio />}
+                                control={<Radio disableRipple />}
                                 label="Windows"
                             />
                             <FormControlLabel
                                 value="fbsd"
-                                control={<Radio />}
+                                control={<Radio disableRipple />}
                                 label="FreeBSD"
                             />
                         </RadioGroup>
@@ -126,7 +126,6 @@ export default withStyles({
                         endIcon={<Code />}
                         onClick={() => {
                             scripts.push(useScript())
-                            console.log(forceRerenderer)
                             setForce(Math.random() * Math.random())
                         }}
                     >
@@ -144,7 +143,6 @@ export default withStyles({
             </Grid>
             <br />
             <br />
-            <Divider />
             {scriptConfs}
         </form>
     )
