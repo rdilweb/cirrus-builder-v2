@@ -1,20 +1,20 @@
 /**
  * The base object that can be extended.
  *
- * This isn't exported on purpose, as its
- * point is just to ensure the name code
- * is the name on all sub classes.
+ * This isn't exported, as its point is
+ * just to ensure the name/id code exists
+ * in all the sub classes.
  */
 class ExtendableBaseObject {
     name: String
     id: Number
 
-    constructor(name: String) {
-        this.name = name
+    constructor() {
+        this.name = ""
         this.id = Math.floor(Math.random() * 10000)
     }
 
-    getName() {
+    getName(): String {
         return this.name
     }
 
@@ -22,7 +22,7 @@ class ExtendableBaseObject {
         this.name = newName
     }
 
-    getId() {
+    getId(): Number {
         return this.id
     }
 }
@@ -31,11 +31,11 @@ export class Script extends ExtendableBaseObject {
     run: String
 
     constructor() {
-        super("")
+        super()
         this.run = ""
     }
 
-    getRun() {
+    getRun(): String {
         return this.run
     }
 
@@ -43,7 +43,7 @@ export class Script extends ExtendableBaseObject {
         this.run = newRun
     }
 
-    toString() {
+    toString(): String {
         let e =
             (this.getName() === "main" ? "" : `${this.getName()}_`) + "script"
         return `${e}: ${this.getRun()}`
@@ -57,13 +57,13 @@ export class CICache extends ExtendableBaseObject {
     fingerprint: Script
 
     constructor() {
-        super("")
+        super()
         this.folder = ""
         this.populate = new Script()
         this.fingerprint = new Script()
     }
 
-    getFolder() {
+    getFolder(): String {
         return this.folder
     }
 
@@ -71,11 +71,11 @@ export class CICache extends ExtendableBaseObject {
         this.folder = newThing
     }
 
-    getPopulate() {
+    getPopulate(): Script {
         return this.populate
     }
 
-    getFingerprint() {
+    getFingerprint(): Script {
         return this.fingerprint
     }
 }
@@ -97,7 +97,7 @@ export class Machine {
         this.type = "docker"
     }
 
-    getType() {
+    getType(): machineType {
         return this.type
     }
 

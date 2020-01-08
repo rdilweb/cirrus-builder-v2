@@ -23,6 +23,7 @@ import Code from "@material-ui/icons/Code"
 import { withStyles } from "@material-ui/core/styles"
 import { Script, CICache, Machine } from "./classes"
 import ScriptConfig from "./ScriptConfig"
+import CacheConfig from "./CacheConfig"
 
 let cfgObjs = []
 let mtype = new Machine()
@@ -70,12 +71,12 @@ export default withStyles({
         setForce(Math.random() * Math.random())
     }
 
-    let scriptConfs = []
-    cfgObjs.forEach(script => {
-        scriptConfs.push(
-            script instanceof CICache
-                ? <div></div>
-                : <ScriptConfig script={script} key={script.getId()} />
+    let drawers = []
+    cfgObjs.forEach(futureYamlNode => {
+        drawers.push(
+            futureYamlNode instanceof CICache
+                ? <CacheConfig cache={futureYamlNode} key={futureYamlNode.getId()} />
+                : <ScriptConfig script={futureYamlNode} key={futureYamlNode.getId()} />
         )
     })
 
@@ -147,6 +148,10 @@ export default withStyles({
                         color="primary"
                         startIcon={<Create />}
                         endIcon={<Cache />}
+                        onClick={() => {
+                            cfgObjs.push(new CICache())
+                            rerender()
+                        }}
                     >
                         Add Cache
                     </Button>
@@ -154,7 +159,7 @@ export default withStyles({
             </Grid>
             <br />
             <br />
-            {scriptConfs}
+            {drawers}
         </form>
     )
 })
