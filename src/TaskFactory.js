@@ -24,6 +24,9 @@ import { withStyles } from "@material-ui/core/styles"
 import { Script, CICache, Machine } from "./classes"
 import ScriptConfig from "./ScriptConfig"
 import CacheConfig from "./CacheConfig"
+import Send from "@material-ui/icons/DoneOutlined"
+import Centered from "./Centered"
+import Popup from "./Popup"
 
 let cfgObjs = []
 let mtype = new Machine()
@@ -38,6 +41,7 @@ export default withStyles({
     let [winImg, setWinImg] = React.useState("")
     let [macImg, setMacImg] = React.useState("")
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
+    let [dialogIsOpen, setDialogIsOpen] = React.useState(false)
     // a state that allows us to make react think the dom needs
     // to be re-rendered.
     // eslint-disable-next-line
@@ -88,8 +92,65 @@ export default withStyles({
         )
     })
 
+    const anyAreTrue = bools => {
+        let e = false
+        bools.forEach(bl => {
+            if (bl) e = true
+        })
+        return e
+    }
+
+    const canExport = () => {
+        /* eslint-disable */
+        let anyUnnamed = false
+        cfgObjs.forEach(o => {
+            if (o.getName() == "") {
+                anyUnnamed = true
+            }
+        })
+        return !anyAreTrue([
+            cfgObjs != [],
+            !anyUnnamed,
+            name == "",
+            (
+                mtype.getType() == "mac"
+                && macImg == ""
+            ),
+            (
+                mtype.getType() == "win"
+                && winImg == ""
+            ),
+            (
+                mtype.getType() == "fbsd"
+                && bsdImg == ""
+            )
+        ])
+        /* eslint-enable */
+    }
+
+    const exportYaml = () => {
+        return ""
+    }
+
+    const errors = () => {
+        return ""
+    }
+
     return (
         <form noValidate autoComplete="off">
+            {dialogIsOpen ? (
+                <Popup
+                    handleClose={setDialogIsOpen}
+                    title={
+                        canExport()
+                            ? "Generated YAML"
+                            : "It looks like there was an error"
+                    }
+                    desc={canExport() ? exportYaml() : errors()}
+                />
+            ) : (
+                <div hidden />
+            )}
             <Grid container spacing={10}>
                 <Grid item xs={3}>
                     <TextField
@@ -168,6 +229,17 @@ export default withStyles({
             <br />
             <br />
             {drawers}
+            <br />
+            <Centered>
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    endIcon={<Send />}
+                    onClick={() => setDialogIsOpen(true)}
+                >
+                    Export
+                </Button>
+            </Centered>
         </form>
     )
 })

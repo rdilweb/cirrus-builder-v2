@@ -13,7 +13,7 @@ export default () => {
         <>
             <AppBar position="static">
                 <Toolbar>
-                    <Tooltip title="View Source Code">
+                    <Tooltip title="View on GitHub">
                         <a
                             href="https://github.com/RDIL/cirrus-builder-v2"
                             target="_blank"
@@ -45,8 +45,6 @@ export default () => {
                 elevation={4}
             >
                 <TaskFactory />
-                <br />
-                <br />
             </Paper>
         </>
     )
