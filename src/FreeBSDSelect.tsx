@@ -12,13 +12,18 @@ const supportedFreeBsdOses = [
     "freebsd-11-3"
 ]
 
-let selectors = []
+interface Props {
+    select: String
+    setSelect(newSelect: unknown): void
+}
+
+let selectors: Array<JSX.Element> = []
 for (let i = 0; i < supportedFreeBsdOses.length; i++) {
     const os = supportedFreeBsdOses[i]
     selectors.push(<MenuItem value={os}>{os}</MenuItem>)
 }
 
-export default props => {
+export default (props: Props) => {
     return (
         <>
             <InputLabel id="freebsd-idr">FreeBSD Image</InputLabel>
