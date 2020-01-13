@@ -3,7 +3,7 @@ import InputLabel from "@material-ui/core/InputLabel"
 import MenuItem from "@material-ui/core/MenuItem"
 import Select from "@material-ui/core/Select"
 
-const supportedMacOses = ["base", "xcode", "flutter"]
+const supportedMacOses = ["base", "xcode-11.3", "flutter"]
 
 let selectors: Array<JSX.Element> = []
 for (let i = 0; i < supportedMacOses.length; i++) {

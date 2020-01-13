@@ -1,6 +1,6 @@
 /**
  * Basically the main class, I would make it
- * TypeScript, but its difficult due to the
+ * TypeScript, but we can't yet due to the
  * state getters and setters
  */
 
@@ -27,6 +27,7 @@ import CacheConfig from "./CacheConfig"
 import Send from "@material-ui/icons/DoneOutlined"
 import Centered from "./Centered"
 import Popup from "./Popup"
+import { Errors } from "./Static"
 
 let cfgObjs = []
 let mtype = new Machine()
@@ -109,8 +110,8 @@ export default withStyles({
             }
         })
         return !anyAreTrue([
-            cfgObjs != [],
-            !anyUnnamed,
+            cfgObjs == [],
+            anyUnnamed,
             name == "",
             (
                 mtype.getType() == "mac"
@@ -129,11 +130,11 @@ export default withStyles({
     }
 
     const exportYaml = () => {
-        return ""
-    }
-
-    const errors = () => {
-        return ""
+        return `
+task:\n
+  name: ${name}
+${mtype.toString()}
+`
     }
 
     return (
@@ -146,7 +147,7 @@ export default withStyles({
                             ? "Generated YAML"
                             : "It looks like there was an error"
                     }
-                    desc={canExport() ? exportYaml() : errors()}
+                    desc={canExport() ? exportYaml() : <Errors />}
                 />
             ) : (
                 <div hidden />
@@ -212,6 +213,8 @@ export default withStyles({
                     >
                         Add Script
                     </Button>
+                </Grid>
+                <Grid item xs={3}>
                     <Button
                         variant="contained"
                         color="primary"

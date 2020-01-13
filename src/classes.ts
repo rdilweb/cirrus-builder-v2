@@ -78,13 +78,16 @@ export class CICache extends ExtendableBaseObject {
     getFingerprint(): Script {
         return this.fingerprint
     }
-}
 
-export class Environment {
-    keys: object
-
-    constructor(keys: object) {
-        this.keys = keys
+    toString(): String {
+        /* eslint-disable */
+        return `\
+${this.getName()}_cache:
+  folder: ${this.getFolder()}
+  ${this.getPopulate().getRun() == "" ? `populate_script: ${this.getPopulate().getRun()}` : ""}
+  ${this.getFingerprint().getRun() == "" ? `fingerprint_script: ${this.getFingerprint().getRun()}` : ""}
+        `
+        /* eslint-enable */
     }
 }
 
@@ -103,5 +106,31 @@ export class Machine {
 
     setType(newType: machineType) {
         this.type = newType
+    }
+
+    toString(otherThing: String): String {
+        switch (this.getType()) {
+            case "docker":
+                return `
+container:\n
+  image: ${otherThing}
+                `
+            case "fbsd":
+                return `
+freebsd_instance:\n
+  image_family: ${otherThing}
+                `
+            case "win":
+                return `
+windows_container:\n
+  image: cirrusci/windowsservercore:2019
+  os_version: ${otherThing}
+                `
+            default:
+                return `
+osx_instance:\n
+  image: ${otherThing}
+                `
+        }
     }
 }
