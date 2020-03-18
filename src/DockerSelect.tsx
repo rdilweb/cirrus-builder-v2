@@ -2,8 +2,8 @@ import React from "react"
 import TextField from "@material-ui/core/TextField"
 
 interface Props {
-    dkrImage: String
-    setDkrImage(newImage: String): void
+    dkrImage: string
+    setDkrImage(newImage: string): void
 }
 
 export default (props: Props) => {

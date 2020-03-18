@@ -6,23 +6,23 @@
  * in all the sub classes.
  */
 class ExtendableBaseObject {
-    name: String
-    id: Number
+    name: string
+    id: number
 
     constructor() {
         this.name = ""
         this.id = Math.floor(Math.random() * 10000)
     }
 
-    getName(): String {
+    getName(): string {
         return this.name
     }
 
-    setName(newName: String) {
+    setName(newName: string) {
         this.name = newName
     }
 
-    getId(): Number {
+    getId(): number {
         return this.id
     }
 }
@@ -31,22 +31,22 @@ class ExtendableBaseObject {
  * Abstract script instruction.
  */
 export class Script extends ExtendableBaseObject {
-    run: String
+    run: string
 
     constructor() {
         super()
         this.run = ""
     }
 
-    getRun(): String {
+    getRun(): string {
         return this.run
     }
 
-    setRun(newRun: String) {
+    setRun(newRun: string) {
         this.run = newRun
     }
 
-    toString(): String {
+    toString(): string {
         let e =
             (this.getName() === "main" ? "" : `${this.getName()}_`) + "script"
         return `${e}: ${this.getRun()}`
@@ -58,7 +58,7 @@ export class Script extends ExtendableBaseObject {
  * Yes, **we do need** to name it CICache to fix conficts.
  */
 export class CICache extends ExtendableBaseObject {
-    folder: String
+    folder: string
     populate: Script
     fingerprint: Script
 
@@ -69,11 +69,11 @@ export class CICache extends ExtendableBaseObject {
         this.fingerprint = new Script()
     }
 
-    getFolder(): String {
+    getFolder(): string {
         return this.folder
     }
 
-    setFolder(newThing: String) {
+    setFolder(newThing: string) {
         this.folder = newThing
     }
 
@@ -85,7 +85,7 @@ export class CICache extends ExtendableBaseObject {
         return this.fingerprint
     }
 
-    toString(): String {
+    toString(): string {
         return (
             this.getName() +
             "_cache\n    folder: " +
@@ -98,7 +98,7 @@ export class CICache extends ExtendableBaseObject {
     }
 }
 
-type machineType = "docker" | "mac" | "win" | "fbsd"
+export type machineType = "docker" | "mac" | "win" | "fbsd" | string
 
 export class Machine {
     type: machineType

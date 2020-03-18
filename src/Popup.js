@@ -8,8 +8,8 @@ import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
 
 export default props => {
-    const t = React.forwardRef((props, ref) => (
-        <Slide direction="up" ref={ref} {...props} />
+    const t = React.forwardRef((properties, ref) => (
+        <Slide direction="up" ref={ref} {...properties} />
     ))
 
     return (

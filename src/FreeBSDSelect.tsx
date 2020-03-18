@@ -13,7 +13,7 @@ const supportedFreeBsdOses = [
 ]
 
 interface Props {
-    select: String
+    select: string
     setSelect(newSelect: unknown): void
 }
 

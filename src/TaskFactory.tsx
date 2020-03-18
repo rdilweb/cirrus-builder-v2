@@ -1,9 +1,3 @@
-/**
- * Basically the main class, I would make it
- * TypeScript, but we can't yet due to the
- * state getters and setters
- */
-
 import React from "react"
 import TextField from "@material-ui/core/TextField"
 import Radio from "@material-ui/core/Radio"
@@ -20,7 +14,6 @@ import Button from "@material-ui/core/Button"
 import Create from "@material-ui/icons/Create"
 import Cache from "@material-ui/icons/Cached"
 import Code from "@material-ui/icons/Code"
-import { withStyles } from "@material-ui/core/styles"
 import { Script, CICache, Machine } from "./classes"
 import ScriptConfig from "./ScriptConfig"
 import CacheConfig from "./CacheConfig"
@@ -33,14 +26,10 @@ import AceEditor from "react-ace"
 import "ace-builds/src-noconflict/mode-yaml"
 import "ace-builds/src-noconflict/theme-xcode"
 
-let cfgObjs = []
+let cfgObjs: Array<Script | CICache> = []
 let mtype = new Machine()
 
-export default withStyles({
-    space: {
-        marginBottom: "12px"
-    }
-})(props => {
+export default () => {
     let [name, setName] = React.useState("") // current task name
     let [bsdImg, setBsdImg] = React.useState("")
     let [macImg, setMacImg] = React.useState("")
@@ -61,7 +50,7 @@ export default withStyles({
         case "win":
             componentOsSelect = <WindowsSelect />
             break
-        case "macos":
+        case "mac":
             componentOsSelect = (
                 <MacOSSelect select={macImg} setSelect={setMacImg} />
             )
@@ -75,13 +64,13 @@ export default withStyles({
 
     /**
      * Rerenders the page.
-     * **It works, please don't question it!!**
+     * It works, so please avoid touching it thanks :)
      */
     function rerender() {
         setForce(Math.random() * Math.random())
     }
 
-    let drawers = []
+    let drawers: Array<any> = []
     cfgObjs.forEach(futureInstruction => {
         drawers.push(
             futureInstruction instanceof CICache ? (
@@ -98,13 +87,7 @@ export default withStyles({
         )
     })
 
-    const anyAreTrue = bools => {
-        let e = false
-        bools.forEach(bl => {
-            if (bl) e = true
-        })
-        return e
-    }
+    const anyAreTrue = (bools: boolean[]) => bools.includes(true)
 
     const canExport = () => {
         /* eslint-disable */
@@ -125,6 +108,13 @@ export default withStyles({
     }
 
     const exportYaml = () => {
+        let collectedInstructions = (() => {
+            let e: string[] = []
+            cfgObjs.forEach(c => {
+                e.push(c.toString())
+            })
+            return e
+        })()
         let value = `\
 task:
     # Basic metadata:
@@ -210,7 +200,7 @@ task:
                 </Grid>
                 <Grid item xs={3}>
                     <Button
-                        className={props.classes.space}
+                        className="rdilCssGiveSpace"
                         variant="contained"
                         color="primary"
                         startIcon={<Create />}
@@ -254,4 +244,4 @@ task:
             </Centered>
         </form>
     )
-})
+}
