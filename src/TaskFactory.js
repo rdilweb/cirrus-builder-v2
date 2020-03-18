@@ -43,7 +43,6 @@ export default withStyles({
 })(props => {
     let [name, setName] = React.useState("") // current task name
     let [bsdImg, setBsdImg] = React.useState("")
-    let [winImg, setWinImg] = React.useState("")
     let [macImg, setMacImg] = React.useState("")
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
     let [dialogIsOpen, setDialogIsOpen] = React.useState(false)
@@ -60,9 +59,7 @@ export default withStyles({
             )
             break
         case "win":
-            componentOsSelect = (
-                <WindowsSelect select={winImg} setSelect={setWinImg} />
-            )
+            componentOsSelect = <WindowsSelect />
             break
         case "macos":
             componentOsSelect = (
@@ -85,17 +82,17 @@ export default withStyles({
     }
 
     let drawers = []
-    cfgObjs.forEach(futureYamlNode => {
+    cfgObjs.forEach(futureInstruction => {
         drawers.push(
-            futureYamlNode instanceof CICache ? (
+            futureInstruction instanceof CICache ? (
                 <CacheConfig
-                    cache={futureYamlNode}
-                    key={futureYamlNode.getId()}
+                    cache={futureInstruction}
+                    key={futureInstruction.getId()}
                 />
             ) : (
                 <ScriptConfig
-                    script={futureYamlNode}
-                    key={futureYamlNode.getId()}
+                    script={futureInstruction}
+                    key={futureInstruction.getId()}
                 />
             )
         )
@@ -122,7 +119,6 @@ export default withStyles({
             anyUnnamed,
             name == "",
             mtype.getType() == "mac" && macImg == "",
-            mtype.getType() == "win" && winImg == "",
             mtype.getType() == "fbsd" && bsdImg == ""
         ])
         /* eslint-enable */
@@ -130,9 +126,12 @@ export default withStyles({
 
     const exportYaml = () => {
         let value = `\
-task:\n
+task:
+    # Basic metadata:
     name: ${name}
-    ${mtype.toString()}`
+    # The build machine:
+    ${mtype.toString(macImg, bsdImg, dkrImage)}
+`
 
         return (
             <AceEditor

@@ -115,16 +115,16 @@ export class Machine {
         this.type = newType
     }
 
-    toString(otherThing: String): String {
+    toString(macOsVersion: String, freeBsdVersion: String, dockerContainer: String): String {
         switch (this.getType()) {
             case "docker":
-                return "container:\n    image: " + otherThing
+                return "container:\n        image: " + dockerContainer
             case "fbsd":
-                return "freebsd_instance:\n    image_family: " + otherThing
+                return "freebsd_instance:\n        image_family: " + freeBsdVersion
             case "win":
-                return "windows_container:\n    image: cirrusci/windowsservercore:" + otherThing
+                return "windows_container:\n        image: cirrusci/windowsservercore:2019"
             default:
-                return "osx_instance:\n    image: " + otherThing
+                return "osx_instance:\n        image: " + macOsVersion
         }
     }
 }
