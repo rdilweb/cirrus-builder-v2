@@ -178,7 +178,7 @@ task:
                                 label="Docker"
                             />
                             <FormControlLabel
-                                value="macos"
+                                value="mac"
                                 control={<Radio disableRipple />}
                                 label="macOS (via Anka)"
                             />
