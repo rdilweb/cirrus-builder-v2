@@ -28,6 +28,10 @@ import Send from "@material-ui/icons/DoneOutlined"
 import Centered from "./Centered"
 import Popup from "./Popup"
 import { Errors } from "./Static"
+import AceEditor from "react-ace"
+
+import "ace-builds/src-noconflict/mode-yaml"
+import "ace-builds/src-noconflict/theme-xcode"
 
 let cfgObjs = []
 let mtype = new Machine()
@@ -44,7 +48,7 @@ export default withStyles({
     let [dkrImage, setDkrImage] = React.useState("debian:latest")
     let [dialogIsOpen, setDialogIsOpen] = React.useState(false)
     // a state that allows us to make react think the dom needs
-    // to be re-rendered.
+    // to be re-rendered when we change it.
     // eslint-disable-next-line
     let [forceRerender, setForce] = React.useState(0)
 
@@ -72,6 +76,10 @@ export default withStyles({
             break
     }
 
+    /**
+     * Rerenders the page.
+     * **It works, please don't question it!!**
+     */
     function rerender() {
         setForce(Math.random() * Math.random())
     }
@@ -113,32 +121,33 @@ export default withStyles({
             cfgObjs == [],
             anyUnnamed,
             name == "",
-            (
-                mtype.getType() == "mac"
-                && macImg == ""
-            ),
-            (
-                mtype.getType() == "win"
-                && winImg == ""
-            ),
-            (
-                mtype.getType() == "fbsd"
-                && bsdImg == ""
-            )
+            mtype.getType() == "mac" && macImg == "",
+            mtype.getType() == "win" && winImg == "",
+            mtype.getType() == "fbsd" && bsdImg == ""
         ])
         /* eslint-enable */
     }
 
     const exportYaml = () => {
-        return `
+        let value = `\
 task:\n
-  name: ${name}
-${mtype.toString()}
-`
+    name: ${name}
+    ${mtype.toString()}`
+
+        return (
+            <AceEditor
+                placeholder="Welcome to the YAML editor!"
+                mode="yaml"
+                theme="xcode"
+                value={value}
+                name={"YAML_EDITOR_" + String(Math.random() * 10)}
+                editorProps={{ $blockScrolling: true }}
+            />
+        )
     }
 
     return (
-        <form noValidate autoComplete="off">
+        <form noValidate>
             {dialogIsOpen ? (
                 <Popup
                     handleClose={setDialogIsOpen}
@@ -158,6 +167,7 @@ ${mtype.toString()}
                         label="Task Name"
                         variant="outlined"
                         value={name}
+                        required={true}
                         onChange={event => setName(event.target.value)}
                     />
                 </Grid>

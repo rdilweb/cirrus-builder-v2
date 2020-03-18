@@ -27,6 +27,9 @@ class ExtendableBaseObject {
     }
 }
 
+/**
+ * Abstract script instruction.
+ */
 export class Script extends ExtendableBaseObject {
     run: String
 
@@ -50,7 +53,10 @@ export class Script extends ExtendableBaseObject {
     }
 }
 
-// have to name it CICache to fix conficts
+/**
+ * An abstract cache instruction.
+ * Yes, **we do need** to name it CICache to fix conficts.
+ */
 export class CICache extends ExtendableBaseObject {
     folder: String
     populate: Script
@@ -80,14 +86,15 @@ export class CICache extends ExtendableBaseObject {
     }
 
     toString(): String {
-        /* eslint-disable */
-        return `\
-${this.getName()}_cache:
-  folder: ${this.getFolder()}
-  ${this.getPopulate().getRun() == "" ? `populate_script: ${this.getPopulate().getRun()}` : ""}
-  ${this.getFingerprint().getRun() == "" ? `fingerprint_script: ${this.getFingerprint().getRun()}` : ""}
-        `
-        /* eslint-enable */
+        return (
+            this.getName() +
+            "_cache\n    folder: " +
+            this.getFolder() +
+            "\n    " +
+            this.getPopulate().toString() +
+            "\n    " +
+            this.getFingerprint().toString()
+        )
     }
 }
 
@@ -111,26 +118,13 @@ export class Machine {
     toString(otherThing: String): String {
         switch (this.getType()) {
             case "docker":
-                return `
-container:\n
-  image: ${otherThing}
-                `
+                return "container:\n    image: " + otherThing
             case "fbsd":
-                return `
-freebsd_instance:\n
-  image_family: ${otherThing}
-                `
+                return "freebsd_instance:\n    image_family: " + otherThing
             case "win":
-                return `
-windows_container:\n
-  image: cirrusci/windowsservercore:2019
-  os_version: ${otherThing}
-                `
+                return "windows_container:\n    image: cirrusci/windowsservercore:" + otherThing
             default:
-                return `
-osx_instance:\n
-  image: ${otherThing}
-                `
+                return "osx_instance:\n    image: " + otherThing
         }
     }
 }

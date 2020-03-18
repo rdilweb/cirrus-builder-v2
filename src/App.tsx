@@ -15,7 +15,7 @@ export default () => {
                 <Toolbar>
                     <Tooltip title="View on GitHub">
                         <a
-                            href="https://github.com/RDIL/cirrus-builder-v2"
+                            href="https://github.com/rdilweb/cirrus-builder-v2"
                             target="_blank"
                             style={{
                                 color: "inherit"
