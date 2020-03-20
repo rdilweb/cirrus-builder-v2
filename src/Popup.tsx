@@ -6,10 +6,17 @@ import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
+import { TransitionProps } from "@material-ui/core/transitions"
 
-export default props => {
-    const t = React.forwardRef((properties, ref) => (
-        <Slide direction="up" ref={ref} {...properties} />
+interface Props {
+    title: string
+    desc: any
+    handleClose: (status: boolean) => void
+}
+
+export default (props: Props) => {
+    const t = React.forwardRef<unknown, TransitionProps>((props, ref) => (
+        <Slide direction="up" ref={ref} {...props} />
     ))
 
     return (

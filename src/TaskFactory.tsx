@@ -111,7 +111,9 @@ export default () => {
         let collectedInstructions = (() => {
             let e: string[] = []
             cfgObjs.forEach(c => {
-                e.push(c.toString())
+                // the `return null` won't be reached when calling this
+                // because the isCacheMember field won't be true
+                e.push(c.toString() as string)
             })
             return e
         })()
