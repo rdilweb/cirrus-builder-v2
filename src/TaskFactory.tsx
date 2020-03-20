@@ -115,12 +115,15 @@ export default () => {
             })
             return e
         })()
+        let instructionsString = collectedInstructions.join("\n    ")
         let value = `\
 task:
     # Basic metadata:
     name: ${name}
     # The build machine:
     ${mtype.toString(macImg, bsdImg, dkrImage)}
+    # Instructions:
+    ${instructionsString}
 `
 
         return (

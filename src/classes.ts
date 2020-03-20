@@ -63,10 +63,16 @@ export class CICache extends ExtendableBaseObject {
     fingerprint: Script
 
     constructor() {
+        // init superclass
         super()
+        // set initial text for folder
         this.folder = ""
+        // create script instances
         this.populate = new Script()
         this.fingerprint = new Script()
+        // set names of scripts
+        this.populate.setName("populate")
+        this.fingerprint.setName("fingerprint")
     }
 
     getFolder(): string {
@@ -88,7 +94,7 @@ export class CICache extends ExtendableBaseObject {
     toString(): string {
         return (
             this.getName() +
-            "_cache\n    folder: " +
+            "_cache:\n    folder: " +
             this.getFolder() +
             "\n    " +
             this.getPopulate().toString() +
@@ -98,8 +104,18 @@ export class CICache extends ExtendableBaseObject {
     }
 }
 
+/**
+ * The machine type.
+ * 
+ * This includes `string` on the end because otherwise, TS complains
+ * about the result of the radio buttons' bound `value` props being
+ * cast to this type.
+ */
 export type machineType = "docker" | "mac" | "win" | "fbsd" | string
 
+/**
+ * A class to hold the data for the build machine.
+ */
 export class Machine {
     type: machineType
 
