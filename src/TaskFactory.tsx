@@ -205,7 +205,6 @@ task:
                 </Grid>
                 <Grid item xs={3}>
                     <Button
-                        className="rdilCssGiveSpace"
                         variant="contained"
                         color="primary"
                         startIcon={<Create />}
@@ -217,8 +216,8 @@ task:
                     >
                         Add Script
                     </Button>
-                </Grid>
-                <Grid item xs={3}>
+                    <br />
+                    <br />
                     <Button
                         variant="contained"
                         color="primary"
