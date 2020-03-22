@@ -2,7 +2,7 @@ import React from "react"
 import Grid from "@material-ui/core/Grid"
 
 interface Props {
-    children: JSX.Element | null | undefined
+    children: JSX.Element
 }
 
 export default (props: Props) => {
