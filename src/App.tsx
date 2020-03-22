@@ -18,7 +18,7 @@ export default () => {
                             href="https://github.com/rdilweb/cirrus-builder-v2"
                             target="_blank"
                             style={{
-                                color: "inherit"
+                                color: "inherit",
                             }}
                             rel="noopener noreferrer"
                         >
@@ -40,7 +40,7 @@ export default () => {
                 style={{
                     padding: "40px",
                     margin: "15px",
-                    paddingBottom: "75px"
+                    paddingBottom: "75px",
                 }}
                 elevation={4}
             >

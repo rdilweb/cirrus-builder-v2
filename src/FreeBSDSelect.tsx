@@ -9,7 +9,7 @@ const supportedFreeBsdOses = [
     "freebsd-12-1",
     "freebsd-12-0",
     "freebsd-11-3-snap",
-    "freebsd-11-3"
+    "freebsd-11-3",
 ]
 
 interface Props {

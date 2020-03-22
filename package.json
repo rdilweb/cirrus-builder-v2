@@ -15,7 +15,7 @@
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
-        "prettier": "prettier --write **/**.{js,jsx,ts,tsx,json,css,html}"
+        "prettier": "prettier --write **/**.{js,jsx,ts,tsx,json,css,html,yml,md}"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -36,6 +36,7 @@
     },
     "prettier": {
         "semi": false,
-        "tabWidth": 4
+        "tabWidth": 4,
+        "arrowParens": "avoid"
     }
 }

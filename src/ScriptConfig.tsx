@@ -17,11 +17,11 @@ export default (props: Props) => {
         heading: {
             fontSize: theme.typography.pxToRem(15),
             flexBasis: "33.33%",
-            flexShrink: 0
+            flexShrink: 0,
         },
         space: {
-            margin: theme.spacing(1)
-        }
+            margin: theme.spacing(1),
+        },
     }))()
 
     const [expanded, setExpanded] = React.useState(false)

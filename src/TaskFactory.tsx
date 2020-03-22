@@ -102,7 +102,7 @@ export default () => {
             anyUnnamed,
             name == "",
             mtype.getType() == "mac" && macImg == "",
-            mtype.getType() == "fbsd" && bsdImg == ""
+            mtype.getType() == "fbsd" && bsdImg == "",
         ])
         /* eslint-enable */
     }
