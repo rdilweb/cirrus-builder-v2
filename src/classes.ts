@@ -177,17 +177,18 @@ export class CICache extends ExtendableBaseObject {
      */
     toString(): string {
         // this part we know will be there
-        const base = this.getName() + "_cache:\n    folder: " + this.getFolder()
+        const base = `${this.getName()}_cache:
+        folder: ${this.getFolder()}`
 
         let p: string =
             this.getPopulate.toString() == null
                 ? ""
-                : "\n    " + this.getPopulate().toString()
+                : "\n        " + this.getPopulate().toString()
 
         let f: string =
             this.getFingerprint().toString() == null
                 ? ""
-                : "\n    " + this.getFingerprint().toString()
+                : "\n        " + this.getFingerprint().toString()
 
         return base + p + f
     }
