@@ -237,9 +237,9 @@ export class Machine {
      * Export this object as a YAML string.
      */
     toString(
-        macOsVersion: String,
-        freeBsdVersion: String,
-        dockerContainer: String
+        macOsVersion: string,
+        freeBsdVersion: string,
+        dockerContainer: string
     ): String {
         switch (this.getType()) {
             case "docker":
@@ -253,5 +253,48 @@ export class Machine {
             default:
                 return "osx_instance:\n        image: " + macOsVersion
         }
+    }
+}
+
+/**
+ * An artifact from the build.
+ */
+export class Artifact extends ExtendableBaseObject {
+    /**
+     * The artifact's location.
+     */
+    path: string
+
+    /**
+     * Basic no-argument constructor.
+     */
+    constructor() {
+        // init superclass
+        super()
+        // set initial text for path
+        this.path = ""
+    }
+
+    /**
+     * Get the artifact's location.
+     */
+    getPath(): string {
+        return this.path
+    }
+
+    /**
+     * Set the artifact's location.
+     */
+    setPath(newThing: string) {
+        this.path = newThing
+    }
+
+    /**
+     * Returns a YAML representation of this object.
+     */
+    toString(): string {
+        // this part we know will be there
+        return `${this.getName()}_artifacts:
+        path: ${this.getPath()}`
     }
 }

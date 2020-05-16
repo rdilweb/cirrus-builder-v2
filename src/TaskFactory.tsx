@@ -14,19 +14,21 @@ import Button from "@material-ui/core/Button"
 import Create from "@material-ui/icons/Create"
 import Cache from "@material-ui/icons/Cached"
 import Code from "@material-ui/icons/Code"
-import { Script, CICache, Machine } from "./classes"
+import { Script, CICache, Machine, Artifact } from "./classes"
 import ScriptConfig from "./ScriptConfig"
 import CacheConfig from "./CacheConfig"
 import Send from "@material-ui/icons/DoneOutlined"
 import Centered from "./Centered"
 import Popup from "./Popup"
+import Upload from "@material-ui/icons/Backup"
 import { Errors } from "./Static"
 import AceEditor from "react-ace"
 
 import "ace-builds/src-noconflict/mode-yaml"
 import "ace-builds/src-noconflict/theme-xcode"
+import ArtifactConfig from "./ArtifactConfig"
 
-let cfgObjs: Array<Script | CICache> = []
+let cfgObjs: Array<Script | CICache | Artifact> = []
 let mtype = new Machine()
 
 export default () => {
@@ -72,22 +74,29 @@ export default () => {
 
     let drawers: Array<any> = []
     cfgObjs.forEach(futureInstruction => {
-        drawers.push(
-            futureInstruction instanceof CICache ? (
+        if (futureInstruction instanceof CICache) {
+            drawers.push(
                 <CacheConfig
                     cache={futureInstruction}
                     key={futureInstruction.getId()}
                 />
-            ) : (
+            )
+        } else if (futureInstruction instanceof Script) {
+            drawers.push(
                 <ScriptConfig
                     script={futureInstruction}
                     key={futureInstruction.getId()}
                 />
             )
-        )
+        } else {
+            drawers.push(
+                <ArtifactConfig
+                    artifact={futureInstruction}
+                    key={futureInstruction.getId()}
+                />
+            )
+        }
     })
-
-    const anyAreTrue = (bools: boolean[]) => bools.includes(true)
 
     const canExport = () => {
         /* eslint-disable */
@@ -97,13 +106,13 @@ export default () => {
                 anyUnnamed = true
             }
         })
-        return !anyAreTrue([
+        return ![
             cfgObjs == [],
             anyUnnamed,
             name == "",
             mtype.getType() == "mac" && macImg == "",
             mtype.getType() == "fbsd" && bsdImg == "",
-        ])
+        ].includes(false)
         /* eslint-enable */
     }
 
@@ -229,6 +238,20 @@ task:
                         }}
                     >
                         Add Cache
+                    </Button>
+                    <br />
+                    <br />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        startIcon={<Create />}
+                        endIcon={<Upload />}
+                        onClick={() => {
+                            cfgObjs.push(new Artifact())
+                            rerender()
+                        }}
+                    >
+                        Add Artifact
                     </Button>
                 </Grid>
             </Grid>

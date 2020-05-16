@@ -12,7 +12,7 @@ for (let i = 0; i < supportedMacOses.length; i++) {
 }
 
 interface Props {
-    select: String
+    select: string
     setSelect(newSelect: unknown): void
 }
 
