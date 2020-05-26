@@ -10,6 +10,5 @@ Welcome to the source directory, here is a quick navigation guide for you:
 -   `Popup.js` - the logic that handles the styling of the popup that you can see after clicking export.
 -   `DockerSelect.tsx`, `MacOSSelect.tsx`, `WindowsSelect.tsx`, and `FreeBSDSelect.tsx` - each of these classes contains the code for the choosing of the exact OS version/image/identifier for each specific OS.
 -   `react-app-env-d.ts` - this file is needed by TypeScript, but I don't know what its purpose is.
--   `CacheConfig.tsx`, `ScriptConfig.tsx` - these React components handle the expandable drawers that have the settings for each individual cache and script.
--   `Static.tsx` - holds basic static content.
+-   `CacheConfig.tsx`, `ScriptConfig.tsx`, `ArtifactConfig.tsx` - these React components handle the expandable drawers that have the settings for each individual cache, script, and artifact.
 -   `classes.ts` - this class (_which does not have any React logic in it, and should remain strictly typed_) handles the scripts, caches, OSes, and all the data related to them, as well as code that tells the app how to export them as valid YAML strings.
