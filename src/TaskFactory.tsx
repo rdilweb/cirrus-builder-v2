@@ -165,7 +165,7 @@ task:
                 <div hidden />
             )}
             <Grid container spacing={10}>
-                <Grid item xs={3}>
+                <Grid item xs>
                     <TextField
                         label="Task Name"
                         variant="outlined"
@@ -174,7 +174,7 @@ task:
                         onChange={event => setName(event.target.value)}
                     />
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs>
                     <FormControl component="fieldset">
                         <FormLabel component="legend">Machine Type</FormLabel>
                         <RadioGroup
@@ -209,10 +209,10 @@ task:
                         </RadioGroup>
                     </FormControl>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs>
                     {componentOsSelect}
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs>
                     <Button
                         variant="contained"
                         color="primary"
