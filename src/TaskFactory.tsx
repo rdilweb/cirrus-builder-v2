@@ -21,7 +21,6 @@ import Send from "@material-ui/icons/DoneOutlined"
 import Centered from "./Centered"
 import Popup from "./Popup"
 import Upload from "@material-ui/icons/Backup"
-import { Errors } from "./Static"
 import AceEditor from "react-ace"
 
 import "ace-builds/src-noconflict/mode-yaml"
@@ -98,24 +97,6 @@ export default () => {
         }
     })
 
-    const canExport = () => {
-        /* eslint-disable */
-        let anyUnnamed = false
-        cfgObjs.forEach(o => {
-            if (o.getName() == "") {
-                anyUnnamed = true
-            }
-        })
-        return ![
-            cfgObjs == [],
-            anyUnnamed,
-            name == "",
-            mtype.getType() == "mac" && macImg == "",
-            mtype.getType() == "fbsd" && bsdImg == "",
-        ].includes(false)
-        /* eslint-enable */
-    }
-
     const exportYaml = () => {
         let collectedInstructions = (() => {
             let e: string[] = []
@@ -154,12 +135,8 @@ task:
             {dialogIsOpen ? (
                 <Popup
                     handleClose={setDialogIsOpen}
-                    title={
-                        canExport()
-                            ? "Generated YAML"
-                            : "It looks like there was an error"
-                    }
-                    desc={canExport() ? exportYaml() : <Errors />}
+                    title={"Generated YAML"}
+                    desc={exportYaml()}
                 />
             ) : (
                 <div hidden />
@@ -189,7 +166,7 @@ task:
                             <FormControlLabel
                                 value="docker"
                                 control={<Radio disableRipple />}
-                                label="Docker"
+                                label="Docker Image"
                             />
                             <FormControlLabel
                                 value="mac"

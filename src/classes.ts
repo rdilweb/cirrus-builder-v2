@@ -5,7 +5,7 @@
  * just to ensure the name/ID code exists
  * in all the sub classes.
  */
-class ExtendableBaseObject {
+class BaseObject {
     /**
      * The name of the node.
      */
@@ -28,7 +28,7 @@ class ExtendableBaseObject {
      * Get the node's name.
      */
     getName(): string {
-        return this.name
+        return this.name.replace(" ", "_")
     }
 
     /**
@@ -49,7 +49,7 @@ class ExtendableBaseObject {
 /**
  * Abstract script instruction.
  */
-export class Script extends ExtendableBaseObject {
+export class Script extends BaseObject {
     /**
      * The command that will be executed during the runtime
      * of this script in CI builds.
@@ -111,7 +111,7 @@ export class Script extends ExtendableBaseObject {
  * An abstract cache instruction.
  * Yes, **we do need** to name it CICache to fix conficts.
  */
-export class CICache extends ExtendableBaseObject {
+export class CICache extends BaseObject {
     /**
      * The cache's target folder.
      */
@@ -259,7 +259,7 @@ export class Machine {
 /**
  * An artifact from the build.
  */
-export class Artifact extends ExtendableBaseObject {
+export class Artifact extends BaseObject {
     /**
      * The artifact's location.
      */

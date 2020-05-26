@@ -59,6 +59,7 @@ export default (props: Props) => {
                         props.script.setName(event.target.value)
                         rerender()
                     }}
+                    required={true}
                 />
                 <TextField
                     className={classes.space}
@@ -69,6 +70,7 @@ export default (props: Props) => {
                         props.script.setRun(event.target.value)
                         rerender()
                     }}
+                    required={true}
                 />
             </ExpansionPanelDetails>
         </ExpansionPanel>

@@ -59,6 +59,7 @@ export default (props: Props) => {
                         props.cache.setName(event.target.value)
                         rerender()
                     }}
+                    required={true}
                 />
                 <TextField
                     className={classes.space}
@@ -69,6 +70,7 @@ export default (props: Props) => {
                         props.cache.setFolder(event.target.value)
                         rerender()
                     }}
+                    required={true}
                 />
                 <TextField
                     className={classes.space}
