@@ -6,13 +6,16 @@ import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Tooltip from "@material-ui/core/Tooltip"
 import IconButton from "@material-ui/core/IconButton"
-import MenuIcon from "@material-ui/icons/Menu"
+import GitHubIcon from "@material-ui/icons/GitHub"
 
 export default () => {
     return (
         <>
             <AppBar position="static">
                 <Toolbar>
+                    <Typography variant="h6" style={{ flexGrow: 1 }}>
+                        Cirrus CI Configuration Builder
+                    </Typography>
                     <Tooltip title="View on GitHub">
                         <a
                             href="https://github.com/rdilweb/cirrus-builder-v2"
@@ -23,17 +26,14 @@ export default () => {
                             rel="noopener noreferrer"
                         >
                             <IconButton
-                                edge="start"
+                                edge="end"
                                 color="inherit"
                                 aria-label="menu"
                             >
-                                <MenuIcon />
+                                <GitHubIcon />
                             </IconButton>
                         </a>
                     </Tooltip>
-                    <Typography variant="h6">
-                        Cirrus CI Configuration Builder
-                    </Typography>
                 </Toolbar>
             </AppBar>
             <Paper

@@ -29,8 +29,6 @@ export default (props: Props) => {
     // eslint-disable-next-line
     let [forceRerender, setForce] = React.useState(0)
 
-    if (!props.cache) throw new Error("no cache")
-
     function rerender() {
         setForce(Math.random() * Math.random())
     }

@@ -29,8 +29,6 @@ export default (props: Props) => {
     // eslint-disable-next-line
     let [forceRerender, setForce] = React.useState(0)
 
-    if (!props.artifact) throw new Error("no artifact")
-
     function rerender() {
         setForce(Math.random() * Math.random())
     }
