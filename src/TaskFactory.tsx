@@ -14,7 +14,7 @@ import Button from "@material-ui/core/Button"
 import Create from "@material-ui/icons/Create"
 import Cache from "@material-ui/icons/Cached"
 import Code from "@material-ui/icons/Code"
-import { Script, CICache, Machine, Artifact } from "./classes"
+import { Script, CICache, Machine, Artifact, machineType } from "./classes"
 import ScriptConfig from "./ScriptConfig"
 import CacheConfig from "./CacheConfig"
 import Send from "@material-ui/icons/DoneOutlined"
@@ -71,7 +71,7 @@ export default () => {
         setForce(Math.random() * Math.random())
     }
 
-    let drawers: Array<any> = []
+    let drawers: Array<JSX.Element> = []
     cfgObjs.forEach(futureInstruction => {
         if (futureInstruction instanceof CICache) {
             drawers.push(
@@ -159,7 +159,7 @@ task:
                             name="machineType"
                             value={mtype.getType()}
                             onChange={event => {
-                                mtype.setType(event.target.value)
+                                mtype.setType(event.target.value as machineType)
                                 rerender()
                             }}
                         >

@@ -196,12 +196,8 @@ export class CICache extends BaseObject {
 
 /**
  * The machine type.
- *
- * This includes `string` on the end because otherwise, TS complains
- * about the result of the radio buttons' bound `value` props being
- * cast to this type.
  */
-export type machineType = "docker" | "mac" | "win" | "fbsd" | string
+export type machineType = "docker" | "mac" | "win" | "fbsd"
 
 /**
  * A class to hold the data for the build machine.
