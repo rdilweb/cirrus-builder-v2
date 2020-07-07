@@ -171,7 +171,7 @@ task:
                             <FormControlLabel
                                 value="mac"
                                 control={<Radio disableRipple />}
-                                label="macOS (via Anka)"
+                                label="macOS"
                             />
                             <FormControlLabel
                                 value="win"
