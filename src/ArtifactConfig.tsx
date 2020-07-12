@@ -26,8 +26,7 @@ export default (props: Props) => {
 
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!expanded)
-    // eslint-disable-next-line
-    let [forceRerender, setForce] = React.useState(0)
+    let [, setForce] = React.useState(0)
 
     function rerender() {
         setForce(Math.random() * Math.random())

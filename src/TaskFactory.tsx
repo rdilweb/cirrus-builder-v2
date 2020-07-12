@@ -27,52 +27,50 @@ import "ace-builds/src-noconflict/mode-yaml"
 import "ace-builds/src-noconflict/theme-xcode"
 import ArtifactConfig from "./ArtifactConfig"
 
-let cfgObjs: Array<Script | CICache | Artifact> = []
+let instructions: Array<Script | CICache | Artifact> = []
 let mtype = new Machine()
 
 export default () => {
     let [name, setName] = React.useState("") // current task name
-    let [bsdImg, setBsdImg] = React.useState("")
-    let [macImg, setMacImg] = React.useState("")
-    let [dkrImage, setDkrImage] = React.useState("debian:latest")
+    let [freeBsdVersion, setFreeBsdVersion] = React.useState("")
+    let [macOsVersion, setMacOsVersion] = React.useState("")
+    let [dockerImage, setDockerImage] = React.useState("debian:latest")
     let [dialogIsOpen, setDialogIsOpen] = React.useState(false)
     // a state that allows us to make react think the dom needs
     // to be re-rendered when we change it.
-    // eslint-disable-next-line
-    let [forceRerender, setForce] = React.useState(0)
+    let [, setForce] = React.useState(0)
 
-    let componentOsSelect
+    let osOptionsComponent
     switch (mtype.getType()) {
         case "docker":
-            componentOsSelect = (
-                <DockerSelect dkrImage={dkrImage} setDkrImage={setDkrImage} />
+            osOptionsComponent = (
+                <DockerSelect dockerImage={dockerImage} setDockerImage={setDockerImage} />
             )
             break
         case "win":
-            componentOsSelect = <WindowsSelect />
+            osOptionsComponent = <WindowsSelect />
             break
         case "mac":
-            componentOsSelect = (
-                <MacOSSelect select={macImg} setSelect={setMacImg} />
+            osOptionsComponent = (
+                <MacOSSelect select={macOsVersion} setSelect={setMacOsVersion} />
             )
             break
         default:
-            componentOsSelect = (
-                <FreeBSDSelect select={bsdImg} setSelect={setBsdImg} />
+            osOptionsComponent = (
+                <FreeBSDSelect select={freeBsdVersion} setSelect={setFreeBsdVersion} />
             )
             break
     }
 
     /**
      * Rerenders the page.
-     * It works, so please avoid touching it thanks :)
      */
     function rerender() {
         setForce(Math.random() * Math.random())
     }
 
     let drawers: Array<JSX.Element> = []
-    cfgObjs.forEach(futureInstruction => {
+    instructions.forEach(futureInstruction => {
         if (futureInstruction instanceof CICache) {
             drawers.push(
                 <CacheConfig
@@ -98,22 +96,14 @@ export default () => {
     })
 
     const exportYaml = () => {
-        let collectedInstructions = (() => {
-            let e: string[] = []
-            cfgObjs.forEach(c => {
-                // the `return null` won't be reached when calling this
-                // because the isCacheMember field won't be true
-                e.push(c.toString() as string)
-            })
-            return e
-        })()
+        let collectedInstructions = instructions.map(i => i.toString() as string)
         let instructionsString = collectedInstructions.join("\n    ")
         let value = `\
 task:
     # Basic metadata:
     name: ${name}
     # The build machine:
-    ${mtype.toString(macImg, bsdImg, dkrImage)}
+    ${mtype.toString(macOsVersion, freeBsdVersion, dockerImage)}
     # Instructions:
     ${instructionsString}
 `
@@ -187,7 +177,7 @@ task:
                     </FormControl>
                 </Grid>
                 <Grid item xs>
-                    {componentOsSelect}
+                    {osOptionsComponent}
                 </Grid>
                 <Grid item xs>
                     <Button
@@ -196,7 +186,7 @@ task:
                         startIcon={<Create />}
                         endIcon={<Code />}
                         onClick={() => {
-                            cfgObjs.push(new Script())
+                            instructions.push(new Script())
                             rerender()
                         }}
                     >
@@ -210,7 +200,7 @@ task:
                         startIcon={<Create />}
                         endIcon={<Cache />}
                         onClick={() => {
-                            cfgObjs.push(new CICache())
+                            instructions.push(new CICache())
                             rerender()
                         }}
                     >
@@ -224,7 +214,7 @@ task:
                         startIcon={<Create />}
                         endIcon={<Upload />}
                         onClick={() => {
-                            cfgObjs.push(new Artifact())
+                            instructions.push(new Artifact())
                             rerender()
                         }}
                     >
