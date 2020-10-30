@@ -12,8 +12,8 @@ interface Props {
     cache: CICache
 }
 
-export default (props: Props) => {
-    const classes = makeStyles(theme => ({
+const CacheConfig = (props: Props) => {
+    const classes = makeStyles((theme) => ({
         heading: {
             fontSize: theme.typography.pxToRem(15),
             flexBasis: "33.33%",
@@ -52,7 +52,7 @@ export default (props: Props) => {
                     label="Cache Name"
                     variant="outlined"
                     value={props.cache.getName()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.cache.setName(event.target.value)
                         rerender()
                     }}
@@ -63,7 +63,7 @@ export default (props: Props) => {
                     label="Folder"
                     variant="outlined"
                     value={props.cache.getFolder()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.cache.setFolder(event.target.value)
                         rerender()
                     }}
@@ -74,7 +74,7 @@ export default (props: Props) => {
                     label="Fingerprint Script"
                     variant="outlined"
                     value={props.cache.getFingerprint().getRun()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.cache.getFingerprint().setRun(event.target.value)
                         rerender()
                     }}
@@ -84,7 +84,7 @@ export default (props: Props) => {
                     label="Populate Script"
                     variant="outlined"
                     value={props.cache.getPopulate().getRun()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.cache.getPopulate().setRun(event.target.value)
                         rerender()
                     }}
@@ -93,3 +93,5 @@ export default (props: Props) => {
         </ExpansionPanel>
     )
 }
+
+export default CacheConfig

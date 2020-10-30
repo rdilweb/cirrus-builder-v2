@@ -12,8 +12,8 @@ interface Props {
     script: Script
 }
 
-export default (props: Props) => {
-    const classes = makeStyles(theme => ({
+const ScriptConfig = (props: Props) => {
+    const classes = makeStyles((theme) => ({
         heading: {
             fontSize: theme.typography.pxToRem(15),
             flexBasis: "33.33%",
@@ -52,7 +52,7 @@ export default (props: Props) => {
                     label="Script Name"
                     variant="outlined"
                     value={props.script.getName()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.script.setName(event.target.value)
                         rerender()
                     }}
@@ -63,7 +63,7 @@ export default (props: Props) => {
                     label="Command"
                     variant="outlined"
                     value={props.script.getRun()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.script.setRun(event.target.value)
                         rerender()
                     }}
@@ -73,3 +73,5 @@ export default (props: Props) => {
         </ExpansionPanel>
     )
 }
+
+export default ScriptConfig

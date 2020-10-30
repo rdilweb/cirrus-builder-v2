@@ -16,7 +16,7 @@ interface Props {
     setSelect(newSelect: unknown): void
 }
 
-export default (props: Props) => {
+const MacOSSelect = (props: Props) => {
     return (
         <>
             <InputLabel id="macos-ctr">macOS Image</InputLabel>
@@ -24,10 +24,12 @@ export default (props: Props) => {
                 labelId="macos-ctr"
                 id="macos-ctr"
                 value={props.select}
-                onChange={event => props.setSelect(event.target.value)}
+                onChange={(event) => props.setSelect(event.target.value)}
             >
                 {selectors}
             </Select>
         </>
     )
 }
+
+export default MacOSSelect

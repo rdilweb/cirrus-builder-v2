@@ -8,7 +8,7 @@ import Tooltip from "@material-ui/core/Tooltip"
 import IconButton from "@material-ui/core/IconButton"
 import GitHubIcon from "@material-ui/icons/GitHub"
 
-export default () => {
+const App = () => {
     return (
         <>
             <AppBar position="static">
@@ -49,3 +49,5 @@ export default () => {
         </>
     )
 }
+
+export default App

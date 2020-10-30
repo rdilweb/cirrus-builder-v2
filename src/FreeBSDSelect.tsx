@@ -23,7 +23,7 @@ for (let i = 0; i < supportedFreeBsdOses.length; i++) {
     selectors.push(<MenuItem value={os}>{os}</MenuItem>)
 }
 
-export default (props: Props) => {
+const FreeBSDSelect = (props: Props) => {
     return (
         <>
             <InputLabel id="freebsd-idr">FreeBSD Image</InputLabel>
@@ -31,10 +31,12 @@ export default (props: Props) => {
                 labelId="freebsd-idr"
                 id="freebsd-idr"
                 value={props.select}
-                onChange={event => props.setSelect(event.target.value)}
+                onChange={(event) => props.setSelect(event.target.value)}
             >
                 {selectors}
             </Select>
         </>
     )
 }
+
+export default FreeBSDSelect
