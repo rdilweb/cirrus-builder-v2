@@ -30,7 +30,7 @@ import ArtifactConfig from "./ArtifactConfig"
 let instructions: Array<Script | CICache | Artifact> = []
 let mtype = new Machine()
 
-export default () => {
+const TaskFactory = () => {
     let [name, setName] = React.useState("") // current task name
     let [freeBsdVersion, setFreeBsdVersion] = React.useState("")
     let [macOsVersion, setMacOsVersion] = React.useState("")
@@ -44,7 +44,10 @@ export default () => {
     switch (mtype.getType()) {
         case "docker":
             osOptionsComponent = (
-                <DockerSelect dockerImage={dockerImage} setDockerImage={setDockerImage} />
+                <DockerSelect
+                    dockerImage={dockerImage}
+                    setDockerImage={setDockerImage}
+                />
             )
             break
         case "win":
@@ -52,12 +55,18 @@ export default () => {
             break
         case "mac":
             osOptionsComponent = (
-                <MacOSSelect select={macOsVersion} setSelect={setMacOsVersion} />
+                <MacOSSelect
+                    select={macOsVersion}
+                    setSelect={setMacOsVersion}
+                />
             )
             break
         default:
             osOptionsComponent = (
-                <FreeBSDSelect select={freeBsdVersion} setSelect={setFreeBsdVersion} />
+                <FreeBSDSelect
+                    select={freeBsdVersion}
+                    setSelect={setFreeBsdVersion}
+                />
             )
             break
     }
@@ -70,7 +79,7 @@ export default () => {
     }
 
     let drawers: Array<JSX.Element> = []
-    instructions.forEach(futureInstruction => {
+    instructions.forEach((futureInstruction) => {
         if (futureInstruction instanceof CICache) {
             drawers.push(
                 <CacheConfig
@@ -96,7 +105,9 @@ export default () => {
     })
 
     const exportYaml = () => {
-        let collectedInstructions = instructions.map(i => i.toString() as string)
+        let collectedInstructions = instructions.map(
+            (i) => i.toString() as string
+        )
         let instructionsString = collectedInstructions.join("\n    ")
         let value = `\
 task:
@@ -138,7 +149,7 @@ task:
                         variant="outlined"
                         value={name}
                         required={true}
-                        onChange={event => setName(event.target.value)}
+                        onChange={(event) => setName(event.target.value)}
                     />
                 </Grid>
                 <Grid item xs>
@@ -148,7 +159,7 @@ task:
                             aria-label="machine-type"
                             name="machineType"
                             value={mtype.getType()}
-                            onChange={event => {
+                            onChange={(event) => {
                                 mtype.setType(event.target.value as machineType)
                                 rerender()
                             }}
@@ -239,3 +250,5 @@ task:
         </form>
     )
 }
+
+export default TaskFactory

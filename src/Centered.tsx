@@ -5,7 +5,7 @@ interface Props {
     children: JSX.Element
 }
 
-export default (props: Props) => {
+const Centered = (props: Props) => {
     if (!props.children) return <div hidden />
 
     return (
@@ -14,3 +14,5 @@ export default (props: Props) => {
         </Grid>
     )
 }
+
+export default Centered

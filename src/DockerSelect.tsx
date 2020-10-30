@@ -6,14 +6,14 @@ interface Props {
     setDockerImage(newImage: string): void
 }
 
-export default (props: Props) => {
+const DockerSelect = (props: Props) => {
     let error = !props.dockerImage.includes(":")
     return (
         <TextField
             label="Docker Image"
             variant="outlined"
             value={props.dockerImage}
-            onChange={event => props.setDockerImage(event.target.value)}
+            onChange={(event) => props.setDockerImage(event.target.value)}
             error={error}
             helperText={
                 error ? "That doesn't look like a vaild Docker image!" : ""
@@ -21,3 +21,5 @@ export default (props: Props) => {
         />
     )
 }
+
+export default DockerSelect

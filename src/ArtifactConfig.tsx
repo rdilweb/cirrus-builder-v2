@@ -12,8 +12,8 @@ interface Props {
     artifact: Artifact
 }
 
-export default (props: Props) => {
-    const classes = makeStyles(theme => ({
+const ArtifactConfig = (props: Props) => {
+    const classes = makeStyles((theme) => ({
         heading: {
             fontSize: theme.typography.pxToRem(15),
             flexBasis: "33.33%",
@@ -52,7 +52,7 @@ export default (props: Props) => {
                     label="Artifact Name"
                     variant="outlined"
                     value={props.artifact.getName()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.artifact.setName(event.target.value)
                         rerender()
                     }}
@@ -63,7 +63,7 @@ export default (props: Props) => {
                     label="Path"
                     variant="outlined"
                     value={props.artifact.getPath()}
-                    onChange={event => {
+                    onChange={(event) => {
                         props.artifact.setPath(event.target.value)
                         rerender()
                     }}
@@ -73,3 +73,5 @@ export default (props: Props) => {
         </ExpansionPanel>
     )
 }
+
+export default ArtifactConfig

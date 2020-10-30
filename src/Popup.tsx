@@ -7,12 +7,12 @@ import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
 
 interface Props {
-    handleClose(isOpen: boolean): void,
-    title: string,
+    handleClose(isOpen: boolean): void
+    title: string
     desc: JSX.Element
 }
 
-export default (props: Props) => (
+const Popup = (props: Props) => (
     <Dialog
         open={true}
         onClose={() => props.handleClose(false)}
@@ -20,21 +20,18 @@ export default (props: Props) => (
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
     >
-        <DialogTitle id="alert-dialog-slide-title">
-            {props.title}
-        </DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title">{props.title}</DialogTitle>
         <DialogContent>
             <DialogContentText id="alert-dialog-slide-description">
                 {props.desc}
             </DialogContentText>
         </DialogContent>
         <DialogActions>
-            <Button
-                onClick={() => props.handleClose(false)}
-                color="primary"
-            >
+            <Button onClick={() => props.handleClose(false)} color="primary">
                 Okay
             </Button>
         </DialogActions>
     </Dialog>
 )
+
+export default Popup
