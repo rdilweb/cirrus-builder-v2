@@ -1,44 +1,43 @@
 import React from "react"
-import TextField from "@material-ui/core/TextField"
-import Radio from "@material-ui/core/Radio"
-import RadioGroup from "@material-ui/core/RadioGroup"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import FormControl from "@material-ui/core/FormControl"
-import FormLabel from "@material-ui/core/FormLabel"
-import Grid from "@material-ui/core/Grid"
+import {
+    TextField,
+    Radio,
+    RadioGroup,
+    FormControl,
+    FormControlLabel,
+    FormLabel,
+    Grid,
+    Button,
+} from "@material-ui/core"
 import FreeBSDSelect from "./FreeBSDSelect"
 import WindowsSelect from "./WindowsSelect"
 import MacOSSelect from "./MacOSSelect"
 import DockerSelect from "./DockerSelect"
-import Button from "@material-ui/core/Button"
-import Create from "@material-ui/icons/Create"
-import Cache from "@material-ui/icons/Cached"
-import Code from "@material-ui/icons/Code"
 import { Script, CICache, Machine, Artifact, machineType } from "./classes"
 import ScriptConfig from "./ScriptConfig"
 import CacheConfig from "./CacheConfig"
-import Send from "@material-ui/icons/DoneOutlined"
 import Centered from "./Centered"
 import Popup from "./Popup"
-import Upload from "@material-ui/icons/Backup"
+import { Backup, Create, Cached, Code, DoneOutlined } from "@material-ui/icons"
 import AceEditor from "react-ace"
 
 import "ace-builds/src-noconflict/mode-yaml"
 import "ace-builds/src-noconflict/theme-xcode"
 import ArtifactConfig from "./ArtifactConfig"
 
-let instructions: Array<Script | CICache | Artifact> = []
+type Instruction = Script | CICache | Artifact
+let instructions: Instruction[] = []
 let mtype = new Machine()
 
 const TaskFactory = () => {
-    let [name, setName] = React.useState("") // current task name
-    let [freeBsdVersion, setFreeBsdVersion] = React.useState("")
-    let [macOsVersion, setMacOsVersion] = React.useState("")
-    let [dockerImage, setDockerImage] = React.useState("debian:latest")
-    let [dialogIsOpen, setDialogIsOpen] = React.useState(false)
+    const [name, setName] = React.useState("") // current task name
+    const [freeBsdVersion, setFreeBsdVersion] = React.useState("")
+    const [macOsVersion, setMacOsVersion] = React.useState("")
+    const [dockerImage, setDockerImage] = React.useState("debian:latest")
+    const [dialogIsOpen, setDialogIsOpen] = React.useState(false)
     // a state that allows us to make react think the dom needs
     // to be re-rendered when we change it.
-    let [, setForce] = React.useState(0)
+    const [, setForce] = React.useState(0)
 
     let osOptionsComponent
     switch (mtype.getType()) {
@@ -78,7 +77,7 @@ const TaskFactory = () => {
         setForce(Math.random() * Math.random())
     }
 
-    let drawers: Array<JSX.Element> = []
+    const drawers: Array<JSX.Element> = []
     instructions.forEach((futureInstruction) => {
         if (futureInstruction instanceof CICache) {
             drawers.push(
@@ -105,11 +104,11 @@ const TaskFactory = () => {
     })
 
     const exportYaml = () => {
-        let collectedInstructions = instructions.map(
+        const collectedInstructions = instructions.map(
             (i) => i.toString() as string
         )
-        let instructionsString = collectedInstructions.join("\n    ")
-        let value = `\
+        const instructionsString = collectedInstructions.join("\n    ")
+        const value = `\
 task:
     # Basic metadata:
     name: ${name}
@@ -209,7 +208,7 @@ task:
                         variant="contained"
                         color="primary"
                         startIcon={<Create />}
-                        endIcon={<Cache />}
+                        endIcon={<Cached />}
                         onClick={() => {
                             instructions.push(new CICache())
                             rerender()
@@ -223,7 +222,7 @@ task:
                         variant="contained"
                         color="primary"
                         startIcon={<Create />}
-                        endIcon={<Upload />}
+                        endIcon={<Backup />}
                         onClick={() => {
                             instructions.push(new Artifact())
                             rerender()
@@ -241,7 +240,7 @@ task:
                 <Button
                     variant="contained"
                     color="secondary"
-                    endIcon={<Send />}
+                    endIcon={<DoneOutlined />}
                     onClick={() => setDialogIsOpen(true)}
                 >
                     Export

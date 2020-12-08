@@ -1,10 +1,12 @@
 import React from "react"
-import ExpansionPanel from "@material-ui/core/ExpansionPanel"
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import Typography from "@material-ui/core/Typography"
-import TextField from "@material-ui/core/TextField"
+import {
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+    TextField,
+    Typography,
+} from "@material-ui/core"
+import { ExpandMore } from "@material-ui/icons"
 import { makeStyles } from "@material-ui/core/styles"
 import { Script } from "./classes"
 
@@ -26,16 +28,16 @@ const ScriptConfig = (props: Props) => {
 
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!expanded)
-    let [, setForce] = React.useState(0)
+    const [, setForce] = React.useState(0)
 
     function rerender() {
         setForce(Math.random() * Math.random())
     }
 
     return (
-        <ExpansionPanel expanded={expanded} onChange={handleChange}>
-            <ExpansionPanelSummary
-                expandIcon={<ExpandMoreIcon />}
+        <Accordion expanded={expanded} onChange={handleChange}>
+            <AccordionSummary
+                expandIcon={<ExpandMore />}
                 aria-controls={`script-${props.script.getName()}-header`}
                 id={`script-${props.script.getName()}-header`}
             >
@@ -45,8 +47,8 @@ const ScriptConfig = (props: Props) => {
                         : "Unnamed"}{" "}
                     Script
                 </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
                 <TextField
                     className={classes.space}
                     label="Script Name"
@@ -69,8 +71,8 @@ const ScriptConfig = (props: Props) => {
                     }}
                     required={true}
                 />
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
+            </AccordionDetails>
+        </Accordion>
     )
 }
 

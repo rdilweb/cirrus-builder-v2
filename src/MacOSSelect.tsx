@@ -1,14 +1,13 @@
 import React from "react"
-import InputLabel from "@material-ui/core/InputLabel"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select from "@material-ui/core/Select"
+import { InputLabel, MenuItem, Select } from "@material-ui/core"
 
 const supportedMacOses = ["catalina-base", "catalina-xcode", "catalina-flutter"]
 
-let selectors: Array<JSX.Element> = []
+const selectors: Array<JSX.Element> = []
+
 for (let i = 0; i < supportedMacOses.length; i++) {
     const os = supportedMacOses[i]
-    selectors.push(<MenuItem value={os}>{os}</MenuItem>)
+    selectors.push(<MenuItem value={os} key={os}>{os}</MenuItem>)
 }
 
 interface Props {
@@ -16,20 +15,18 @@ interface Props {
     setSelect(newSelect: unknown): void
 }
 
-const MacOSSelect = (props: Props) => {
-    return (
-        <>
-            <InputLabel id="macos-ctr">macOS Image</InputLabel>
-            <Select
-                labelId="macos-ctr"
-                id="macos-ctr"
-                value={props.select}
-                onChange={(event) => props.setSelect(event.target.value)}
-            >
-                {selectors}
-            </Select>
-        </>
-    )
-}
+const MacOSSelect = (props: Props) => (
+    <>
+        <InputLabel id="macos-ctr">macOS Image</InputLabel>
+        <Select
+            labelId="macos-ctr"
+            id="macos-ctr"
+            value={props.select}
+            onChange={(event) => props.setSelect(event.target.value)}
+        >
+            {selectors}
+        </Select>
+    </>
+)
 
 export default MacOSSelect

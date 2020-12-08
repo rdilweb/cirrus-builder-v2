@@ -1,12 +1,14 @@
 import React from "react"
-import ExpansionPanel from "@material-ui/core/ExpansionPanel"
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary"
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import Typography from "@material-ui/core/Typography"
-import TextField from "@material-ui/core/TextField"
 import { makeStyles } from "@material-ui/core/styles"
 import { Artifact } from "./classes"
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Typography,
+    TextField,
+} from "@material-ui/core"
 
 interface Props {
     artifact: Artifact
@@ -33,8 +35,8 @@ const ArtifactConfig = (props: Props) => {
     }
 
     return (
-        <ExpansionPanel expanded={expanded} onChange={handleChange}>
-            <ExpansionPanelSummary
+        <Accordion expanded={expanded} onChange={handleChange}>
+            <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
                 aria-controls={`artifact-${props.artifact.getName()}-header`}
                 id={`artifact-${props.artifact.getName()}-header`}
@@ -45,8 +47,8 @@ const ArtifactConfig = (props: Props) => {
                         : "Unnamed"}{" "}
                     Artifact
                 </Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            </AccordionSummary>
+            <AccordionDetails>
                 <TextField
                     className={classes.space}
                     label="Artifact Name"
@@ -69,8 +71,8 @@ const ArtifactConfig = (props: Props) => {
                     }}
                     required={true}
                 />
-            </ExpansionPanelDetails>
-        </ExpansionPanel>
+            </AccordionDetails>
+        </Accordion>
     )
 }
 

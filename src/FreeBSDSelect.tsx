@@ -1,7 +1,5 @@
 import React from "react"
-import InputLabel from "@material-ui/core/InputLabel"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select from "@material-ui/core/Select"
+import { InputLabel, MenuItem, Select } from "@material-ui/core"
 
 const supportedFreeBsdOses = [
     "freebsd-13-0-snap",
@@ -17,26 +15,25 @@ interface Props {
     setSelect(newSelect: unknown): void
 }
 
-let selectors: Array<JSX.Element> = []
+const selectors: Array<JSX.Element> = []
+
 for (let i = 0; i < supportedFreeBsdOses.length; i++) {
     const os = supportedFreeBsdOses[i]
-    selectors.push(<MenuItem value={os}>{os}</MenuItem>)
+    selectors.push(<MenuItem value={os} key={os}>{os}</MenuItem>)
 }
 
-const FreeBSDSelect = (props: Props) => {
-    return (
-        <>
-            <InputLabel id="freebsd-idr">FreeBSD Image</InputLabel>
-            <Select
-                labelId="freebsd-idr"
-                id="freebsd-idr"
-                value={props.select}
-                onChange={(event) => props.setSelect(event.target.value)}
-            >
-                {selectors}
-            </Select>
-        </>
-    )
-}
+const FreeBSDSelect = (props: Props) => (
+    <>
+        <InputLabel id="freebsd-idr">FreeBSD Image</InputLabel>
+        <Select
+            labelId="freebsd-idr"
+            id="freebsd-idr"
+            value={props.select}
+            onChange={(event) => props.setSelect(event.target.value)}
+        >
+            {selectors}
+        </Select>
+    </>
+)
 
 export default FreeBSDSelect

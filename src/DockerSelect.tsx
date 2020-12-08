@@ -7,7 +7,8 @@ interface Props {
 }
 
 const DockerSelect = (props: Props) => {
-    let error = !props.dockerImage.includes(":")
+    const error = !props.dockerImage.includes(":")
+
     return (
         <TextField
             label="Docker Image"

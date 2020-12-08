@@ -1,12 +1,10 @@
 import React from "react"
-import Typography from "@material-ui/core/Typography"
+import { Typography } from "@material-ui/core"
 
-const WindowsSelect = () => {
-    return (
-        <Typography>
-            No extra configuration is needed for Windows containers!
-        </Typography>
-    )
-}
+const WindowsSelect = () => (
+    <Typography>
+        No extra configuration is needed for Windows containers!
+    </Typography>
+)
 
 export default WindowsSelect
