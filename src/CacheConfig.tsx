@@ -7,28 +7,16 @@ import {
     Typography,
 } from "@material-ui/core"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import { makeStyles } from "@material-ui/core/styles"
 import { CICache } from "./classes"
 
-interface Props {
+interface CacheConfigProps {
     cache: CICache
 }
 
-const CacheConfig = (props: Props) => {
-    const classes = makeStyles((theme) => ({
-        heading: {
-            fontSize: theme.typography.pxToRem(15),
-            flexBasis: "33.33%",
-            flexShrink: 0,
-        },
-        space: {
-            margin: theme.spacing(1),
-        },
-    }))()
-
+const CacheConfig = (props: CacheConfigProps) => {
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!expanded)
-    let [, setForce] = React.useState(0)
+    const [, setForce] = React.useState(0)
 
     function rerender() {
         setForce(Math.random() * Math.random())
@@ -41,7 +29,7 @@ const CacheConfig = (props: Props) => {
                 aria-controls={`cache-${props.cache.getName()}-header`}
                 id={`cache-${props.cache.getName()}-header`}
             >
-                <Typography className={classes.heading}>
+                <Typography className="accordion-heading">
                     {props.cache.getName() !== ""
                         ? props.cache.getName()
                         : "Unnamed"}{" "}
@@ -50,7 +38,7 @@ const CacheConfig = (props: Props) => {
             </AccordionSummary>
             <AccordionDetails>
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Cache Name"
                     variant="outlined"
                     value={props.cache.getName()}
@@ -61,7 +49,7 @@ const CacheConfig = (props: Props) => {
                     required={true}
                 />
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Folder"
                     variant="outlined"
                     value={props.cache.getFolder()}
@@ -72,7 +60,7 @@ const CacheConfig = (props: Props) => {
                     required={true}
                 />
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Fingerprint Script"
                     variant="outlined"
                     value={props.cache.getFingerprint().getRun()}
@@ -82,7 +70,7 @@ const CacheConfig = (props: Props) => {
                     }}
                 />
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Populate Script"
                     variant="outlined"
                     value={props.cache.getPopulate().getRun()}

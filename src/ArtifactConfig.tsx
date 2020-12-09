@@ -1,6 +1,5 @@
 import React from "react"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore"
-import { makeStyles } from "@material-ui/core/styles"
 import { Artifact } from "./classes"
 import {
     Accordion,
@@ -10,25 +9,14 @@ import {
     TextField,
 } from "@material-ui/core"
 
-interface Props {
+interface ArtifactConfigProps {
     artifact: Artifact
 }
 
-const ArtifactConfig = (props: Props) => {
-    const classes = makeStyles((theme) => ({
-        heading: {
-            fontSize: theme.typography.pxToRem(15),
-            flexBasis: "33.33%",
-            flexShrink: 0,
-        },
-        space: {
-            margin: theme.spacing(1),
-        },
-    }))()
-
+const ArtifactConfig = (props: ArtifactConfigProps) => {
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!expanded)
-    let [, setForce] = React.useState(0)
+    const [, setForce] = React.useState(0)
 
     function rerender() {
         setForce(Math.random() * Math.random())
@@ -41,7 +29,7 @@ const ArtifactConfig = (props: Props) => {
                 aria-controls={`artifact-${props.artifact.getName()}-header`}
                 id={`artifact-${props.artifact.getName()}-header`}
             >
-                <Typography className={classes.heading}>
+                <Typography className="accordion-heading">
                     {props.artifact.getName() !== ""
                         ? props.artifact.getName()
                         : "Unnamed"}{" "}
@@ -50,7 +38,7 @@ const ArtifactConfig = (props: Props) => {
             </AccordionSummary>
             <AccordionDetails>
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Artifact Name"
                     variant="outlined"
                     value={props.artifact.getName()}
@@ -61,7 +49,7 @@ const ArtifactConfig = (props: Props) => {
                     required={true}
                 />
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Path"
                     variant="outlined"
                     value={props.artifact.getPath()}

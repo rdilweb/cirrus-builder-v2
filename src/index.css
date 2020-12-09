@@ -1,3 +1,6 @@
+/**
+ * Font setup.
+ */
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
@@ -5,4 +8,33 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/*
+ * Used in accordions to put space in between child items.
+ */
+.space {
+    margin: 8px !important;
+}
+
+/*
+ * Used by text fields to avoid overlap.
+ */
+.space-left {
+    margin-left: 8px !important;
+}
+
+/*
+ * For light green text.
+ */
+.is-light-green {
+    color: green;
+}
+
+/*
+ * Used for the headings of accordions to put the arrow at the end.
+ */
+.accordion-heading {
+    flex-basis: 33.33%;
+    flex-shrink: 0;
 }

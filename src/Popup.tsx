@@ -8,13 +8,13 @@ import {
     DialogTitle,
 } from "@material-ui/core"
 
-interface Props {
+interface PopupProps {
     handleClose(isOpen: boolean): void
     title: string
     desc: JSX.Element
 }
 
-const Popup = (props: Props) => (
+const Popup = (props: PopupProps) => (
     <Dialog
         open={true}
         onClose={() => props.handleClose(false)}
@@ -30,7 +30,7 @@ const Popup = (props: Props) => (
         </DialogContent>
         <DialogActions>
             <Button onClick={() => props.handleClose(false)} color="primary">
-                Okay
+                Close
             </Button>
         </DialogActions>
     </Dialog>

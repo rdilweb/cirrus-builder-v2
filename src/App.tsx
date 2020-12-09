@@ -1,11 +1,13 @@
 import React from "react"
-import Typography from "@material-ui/core/Typography"
-import Paper from "@material-ui/core/Paper"
+import {
+    Typography,
+    Paper,
+    Toolbar,
+    AppBar,
+    Tooltip,
+    IconButton,
+} from "@material-ui/core"
 import TaskFactory from "./TaskFactory"
-import AppBar from "@material-ui/core/AppBar"
-import Toolbar from "@material-ui/core/Toolbar"
-import Tooltip from "@material-ui/core/Tooltip"
-import IconButton from "@material-ui/core/IconButton"
 import GitHubIcon from "@material-ui/icons/GitHub"
 
 const App = () => (

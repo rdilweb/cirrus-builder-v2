@@ -1,5 +1,6 @@
 import React from "react"
 import { InputLabel, MenuItem, Select } from "@material-ui/core"
+import { SelectorProps } from "./classes"
 
 const supportedFreeBsdOses = [
     "freebsd-13-0-snap",
@@ -10,26 +11,25 @@ const supportedFreeBsdOses = [
     "freebsd-11-3",
 ]
 
-interface Props {
-    select: string
-    setSelect(newSelect: unknown): void
-}
-
 const selectors: Array<JSX.Element> = []
 
 for (let i = 0; i < supportedFreeBsdOses.length; i++) {
     const os = supportedFreeBsdOses[i]
-    selectors.push(<MenuItem value={os} key={os}>{os}</MenuItem>)
+    selectors.push(
+        <MenuItem value={os} key={os}>
+            {os}
+        </MenuItem>
+    )
 }
 
-const FreeBSDSelect = (props: Props) => (
+const FreeBSDSelect = (props: SelectorProps<string>) => (
     <>
         <InputLabel id="freebsd-idr">FreeBSD Image</InputLabel>
         <Select
             labelId="freebsd-idr"
             id="freebsd-idr"
-            value={props.select}
-            onChange={(event) => props.setSelect(event.target.value)}
+            value={props.value}
+            onChange={(event) => props.setValue(event.target.value as string)}
         >
             {selectors}
         </Select>

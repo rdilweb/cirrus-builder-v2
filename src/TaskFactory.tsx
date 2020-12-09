@@ -8,14 +8,25 @@ import {
     FormLabel,
     Grid,
     Button,
+    Tab,
+    Tabs,
+    Typography,
 } from "@material-ui/core"
 import FreeBSDSelect from "./FreeBSDSelect"
 import WindowsSelect from "./WindowsSelect"
 import MacOSSelect from "./MacOSSelect"
 import DockerSelect from "./DockerSelect"
-import { Script, CICache, Machine, Artifact, machineType } from "./classes"
+import {
+    Script,
+    CICache,
+    Machine,
+    Artifact,
+    machineType,
+    EnvironmentVariable,
+} from "./classes"
 import ScriptConfig from "./ScriptConfig"
 import CacheConfig from "./CacheConfig"
+import ArtifactConfig from "./ArtifactConfig"
 import Centered from "./Centered"
 import Popup from "./Popup"
 import { Backup, Create, Cached, Code, DoneOutlined } from "@material-ui/icons"
@@ -23,13 +34,14 @@ import AceEditor from "react-ace"
 
 import "ace-builds/src-noconflict/mode-yaml"
 import "ace-builds/src-noconflict/theme-xcode"
-import ArtifactConfig from "./ArtifactConfig"
+import EnvironmentVariables from "./EnvironmentVariables"
 
 type Instruction = Script | CICache | Artifact
-let instructions: Instruction[] = []
-let mtype = new Machine()
+const instructions: Instruction[] = []
+const mtype = new Machine()
 
 const TaskFactory = () => {
+    const [tab, setTab] = React.useState(0)
     const [name, setName] = React.useState("") // current task name
     const [freeBsdVersion, setFreeBsdVersion] = React.useState("")
     const [macOsVersion, setMacOsVersion] = React.useState("")
@@ -38,15 +50,13 @@ const TaskFactory = () => {
     // a state that allows us to make react think the dom needs
     // to be re-rendered when we change it.
     const [, setForce] = React.useState(0)
+    const [envVars, setEnvVars] = React.useState([] as EnvironmentVariable[])
 
-    let osOptionsComponent
+    let osOptionsComponent: JSX.Element
     switch (mtype.getType()) {
         case "docker":
             osOptionsComponent = (
-                <DockerSelect
-                    dockerImage={dockerImage}
-                    setDockerImage={setDockerImage}
-                />
+                <DockerSelect value={dockerImage} setValue={setDockerImage} />
             )
             break
         case "win":
@@ -54,17 +64,14 @@ const TaskFactory = () => {
             break
         case "mac":
             osOptionsComponent = (
-                <MacOSSelect
-                    select={macOsVersion}
-                    setSelect={setMacOsVersion}
-                />
+                <MacOSSelect value={macOsVersion} setValue={setMacOsVersion} />
             )
             break
         default:
             osOptionsComponent = (
                 <FreeBSDSelect
-                    select={freeBsdVersion}
-                    setSelect={setFreeBsdVersion}
+                    value={freeBsdVersion}
+                    setValue={setFreeBsdVersion}
                 />
             )
             break
@@ -104,18 +111,21 @@ const TaskFactory = () => {
     })
 
     const exportYaml = () => {
-        const collectedInstructions = instructions.map(
-            (i) => i.toString() as string
-        )
-        const instructionsString = collectedInstructions.join("\n    ")
+        const collectedInstructions = instructions
+            .map((i) => i.toString() as string)
+            .join("\n    ")
         const value = `\
 task:
     # Basic metadata:
     name: ${name}
+
     # The build machine:
     ${mtype.toString(macOsVersion, freeBsdVersion, dockerImage)}
+
+    ${EnvironmentVariable.createEnvBlock(envVars)}
+
     # Instructions:
-    ${instructionsString}
+    ${collectedInstructions}
 `
 
         return (
@@ -130,17 +140,8 @@ task:
         )
     }
 
-    return (
+    const general = (
         <form noValidate>
-            {dialogIsOpen ? (
-                <Popup
-                    handleClose={setDialogIsOpen}
-                    title={"Generated YAML"}
-                    desc={exportYaml()}
-                />
-            ) : (
-                <div hidden />
-            )}
             <Grid container spacing={10}>
                 <Grid item xs>
                     <TextField
@@ -235,7 +236,18 @@ task:
             <br />
             <br />
             {drawers}
-            <br />
+        </form>
+    )
+
+    const exportTab = (
+        <>
+            <Centered>
+                <Typography>
+                    Press the button below to export the configuration to YAML.
+                    You can always edit it after exporting by closing the dialog
+                    and going back.
+                </Typography>
+            </Centered>
             <Centered>
                 <Button
                     variant="contained"
@@ -246,7 +258,38 @@ task:
                     Export
                 </Button>
             </Centered>
-        </form>
+        </>
+    )
+
+    const env = <EnvironmentVariables value={envVars} setValue={setEnvVars} />
+
+    return (
+        <>
+            <Tabs
+                style={{ marginBottom: 40 }}
+                value={tab}
+                onChange={(_e, val) => setTab(val)}
+                indicatorColor="primary"
+                textColor="primary"
+                centered
+            >
+                <Tab label="General Options" />
+                <Tab label="Environment Variables" />
+                <Tab label="Export" />
+            </Tabs>
+            {tab === 0 ? general : null}
+            {tab === 1 ? env : null}
+            {tab === 2 ? exportTab : null}
+            {dialogIsOpen ? (
+                <Popup
+                    handleClose={setDialogIsOpen}
+                    title={"Generated YAML"}
+                    desc={exportYaml()}
+                />
+            ) : (
+                <div hidden />
+            )}
+        </>
     )
 }
 

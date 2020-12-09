@@ -1,9 +1,9 @@
 /**
- * The base object that can be extended.
+ * The base for other data objects.
  *
  * This isn't exported, its point is
- * just to ensure the name/ID code exists
- * in all the sub classes.
+ * just to ensure the name and ID methods exist
+ * in the sub classes.
  */
 class BaseObject {
     /**
@@ -63,7 +63,7 @@ export class Script extends BaseObject {
     isCacheMember: boolean
 
     /**
-     * The class constructor.
+     * Basic no-argument constructor.
      */
     constructor() {
         super()
@@ -93,7 +93,7 @@ export class Script extends BaseObject {
     }
 
     /**
-     * Generates a string based on the saved data.
+     * Returns a YAML representation of this object.
      */
     toString(): string | null {
         // eslint-disable-next-line
@@ -101,14 +101,14 @@ export class Script extends BaseObject {
             // part of a cache, and the user doesn't want this script
             return null
         }
-        let e =
+        const e =
             (this.getName() === "main" ? "" : `${this.getName()}_`) + "script"
         return `${e}: ${this.getRun()}`
     }
 }
 
 /**
- * An abstract cache instruction.
+ * Abstract cache instruction.
  * Yes, **we do need** to name it CICache to fix conficts.
  */
 export class CICache extends BaseObject {
@@ -180,27 +180,27 @@ export class CICache extends BaseObject {
         const base = `${this.getName()}_cache:
         folder: ${this.getFolder()}`
 
-        let p: string =
+        const populate: string =
             this.getPopulate.toString() == null
                 ? ""
                 : "\n        " + this.getPopulate().toString()
 
-        let f: string =
+        const fingerprint: string =
             this.getFingerprint().toString() == null
                 ? ""
                 : "\n        " + this.getFingerprint().toString()
 
-        return base + p + f
+        return base + populate + fingerprint
     }
 }
 
 /**
- * The machine type.
+ * All supported machines' name literals.
  */
 export type machineType = "docker" | "mac" | "win" | "fbsd"
 
 /**
- * A class to hold the data for the build machine.
+ * Abstract build machine.
  */
 export class Machine {
     /**
@@ -292,5 +292,64 @@ export class Artifact extends BaseObject {
         // this part we know will be there
         return `${this.getName()}_artifacts:
         path: ${this.getPath()}`
+    }
+}
+
+/**
+ * Common props for the selector components.
+ */
+export interface SelectorProps<SelectionType> {
+    /**
+     * The selector's currently selected value.
+     */
+    value: SelectionType
+    /**
+     * Set the selector's value.
+     */
+    setValue(value: SelectionType): void
+}
+
+/**
+ * An environment variable.
+ */
+export class EnvironmentVariable extends BaseObject {
+    /**
+     * The variable's name.
+     */
+    name: string
+    /**
+     * The variable's value.
+     */
+    value: string
+
+    /**
+     * Basic no-argument constructor.
+     */
+    constructor() {
+        // init superclass
+        super()
+        // init values
+        this.name = ""
+        this.value = ""
+    }
+
+    /**
+     * Returns a YAML representation of this object.
+     */
+    toString(): string {
+        return `${this.name}: ${this.value}`
+    }
+
+    /**
+     * Creates a YAML block containing the passed environment variables.
+     */
+    static createEnvBlock(variables: EnvironmentVariable[]): string {
+        if (variables.length < 1) {
+            return "# No environment variables provided."
+        }
+
+        return `# Environment variables:
+    env:
+        ${variables.map((variable) => variable.toString()).join("\n        ")}`
     }
 }

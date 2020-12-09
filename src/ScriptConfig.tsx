@@ -7,25 +7,13 @@ import {
     Typography,
 } from "@material-ui/core"
 import { ExpandMore } from "@material-ui/icons"
-import { makeStyles } from "@material-ui/core/styles"
 import { Script } from "./classes"
 
-interface Props {
+interface ScriptConfigProps {
     script: Script
 }
 
-const ScriptConfig = (props: Props) => {
-    const classes = makeStyles((theme) => ({
-        heading: {
-            fontSize: theme.typography.pxToRem(15),
-            flexBasis: "33.33%",
-            flexShrink: 0,
-        },
-        space: {
-            margin: theme.spacing(1),
-        },
-    }))()
-
+const ScriptConfig = (props: ScriptConfigProps) => {
     const [expanded, setExpanded] = React.useState(false)
     const handleChange = () => setExpanded(!expanded)
     const [, setForce] = React.useState(0)
@@ -41,7 +29,7 @@ const ScriptConfig = (props: Props) => {
                 aria-controls={`script-${props.script.getName()}-header`}
                 id={`script-${props.script.getName()}-header`}
             >
-                <Typography className={classes.heading}>
+                <Typography className="accordion-heading">
                     {props.script.getName() !== ""
                         ? props.script.getName()
                         : "Unnamed"}{" "}
@@ -50,7 +38,7 @@ const ScriptConfig = (props: Props) => {
             </AccordionSummary>
             <AccordionDetails>
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Script Name"
                     variant="outlined"
                     value={props.script.getName()}
@@ -61,7 +49,7 @@ const ScriptConfig = (props: Props) => {
                     required={true}
                 />
                 <TextField
-                    className={classes.space}
+                    className="space"
                     label="Command"
                     variant="outlined"
                     value={props.script.getRun()}

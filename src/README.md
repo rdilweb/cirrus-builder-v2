@@ -9,6 +9,7 @@ Welcome to the source directory, here is a quick navigation guide for you:
 -   `Centered.tsx` - a wrapper component for any content that should be center-aligned on the page.
 -   `Popup.tsx` - the logic that handles the styling of the popup that you can see after clicking export.
 -   `DockerSelect.tsx`, `MacOSSelect.tsx`, `WindowsSelect.tsx`, and `FreeBSDSelect.tsx` - each of these classes contains the code for the choosing of the exact OS version/image/identifier for each specific OS.
--   `react-app-env-d.ts` - this file is needed by TypeScript, but I don't know what its purpose is.
+-   `react-app-env-d.ts` - this file is needed by TypeScript, but I don't know what its exact purpose is.
 -   `CacheConfig.tsx`, `ScriptConfig.tsx`, `ArtifactConfig.tsx` - these React components handle the expandable drawers that have the settings for each individual cache, script, and artifact.
 -   `classes.ts` - this class (_which does not have any React logic in it, and should remain strictly typed_) handles the scripts, caches, OSes, and all the data related to them, as well as code that tells the app how to export them as valid YAML strings.
+-   `EnvironmentVariables.tsx` - the code for everything under the "Environment Variables" tab.
